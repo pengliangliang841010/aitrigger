@@ -1,0 +1,227 @@
+.wrap {
+    .show {
+        display: block;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .width1280 {
+        margin: 0 auto;
+        width: auto !important;
+        max-width: 1280px !important;
+    }
+
+    .innerWrap {
+        margin: 0 16px;
+padding-bottom: 150px;
+        .info {
+            color: #fff;
+            text-align: center;
+            padding-top: 8px;
+
+            h1 {
+                font-size: 24px;
+                font-weight: 700;
+                line-height: 32px;
+                color: #fff;
+            }
+
+            p {
+                line-height: 20px;
+                font-size: 14px;
+                padding: 24px 16px;
+                color: rgb(150, 150, 150)
+            }
+        }
+
+        .block {
+            .blockList {
+                margin: 16px 0;
+                padding: 8px;
+            }
+
+            .open {
+                border-radius: 6px;
+                background-color: rgb(36, 45, 64);
+
+                .listHeader {
+                    border-bottom-color: transparent
+                }
+            }
+
+            .listHeader {
+                font-weight: 600;
+                margin: 4px;
+                padding: 4px;
+                text-align: center;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 2px solid rgb(161, 161, 170);
+
+                .headerLeft {
+                    color: #fff;
+                    font-size: 16px;
+                    line-height: 100%;
+                }
+
+                .headerRight {
+                    display: flex;
+                    align-items: center;
+                    height: 24px;
+                    margin: 8px;
+                    cursor: pointer;
+                    svg {
+                        color: #fff !important;
+                    }
+                }
+            }
+
+            .FormItemWrap {
+                margin: 0 8px;
+            }
+
+            .listBody {
+                display: flex;
+                flex-wrap: wrap;
+                padding-bottom: 16px;
+
+            }
+        }
+    }
+
+    .bodyItem {
+        cursor: pointer;
+        color: rgb(14, 14, 14);
+        background-color: #fff;
+        font-size: 14px;
+        margin: 8px;
+        padding: 8px;
+        display: inline-block;
+        align-items: center;
+
+        svg {
+            margin-left: 20px;
+            vertical-align: middle;
+        }
+    }
+
+    .bodyItem.current {
+
+        color: #fff;
+        background-color: $mainColor;
+    }
+
+    .btnWrap {
+        position: fixed;
+        left: 16px;
+        right: 16px;
+        bottom: 80px;
+        button{
+            font-weight: bold!important;
+            font-size: 24px!important;
+            line-height: 42px!important;
+            height:42px!important;
+            display: flex!important;
+            align-items: center!important;
+            justify-content: center!important;
+            span{
+                line-height: 20px!important;
+            }
+        }
+    }
+
+    .createImgWrap {
+        margin: 16px 0;
+        padding: 8px;
+
+        flex-direction: column;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        .imgWrap {
+            width:100%;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position:relative;
+            background-color: rgb(36, 45, 64);
+        }
+    }
+
+    .editWrap {
+        width:100%;
+        margin: 16px 0;
+        padding: 16px;
+font-size: 14px;
+        color:#fff;
+        border-radius: 6px;
+        background-color: rgb(36, 45, 64);
+        justify-content: center;
+    .editItem{
+        margin-top: 8px;
+        padding-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .editWrapLeft{
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        gap: 10px;
+        .editWrapLeftSvg{
+            padding:8px;
+            border-radius: 6px;
+            display: inline-block;
+            background-color: $mainColor;
+        }
+    }
+    .editWrapRight{
+        color:rgb(150, 150, 150);
+        font-size: 14px;
+    }
+    }
+}
+
+@media screen and (min-width: 541px) {
+    .btnWrap {
+        max-width: 30vw;
+        right:auto;
+        left:50%!important;
+        margin-left: -15vw;
+        button{
+            font-weight: bold!important;
+            font-size: 24px!important;
+            line-height: 42px!important;
+            height:42px!important;
+            display: flex!important;
+            align-items: center!important;
+            justify-content: center!important;
+            span{
+                line-height: 20px!important;
+            }
+        }
+    }
+    .tagMap{
+        padding-top:13px;
+    }
+    .pcSuit{
+        display: flex;
+        justify-content: space-between;
+        .createImgWrap{
+            width:50%;
+
+        }
+        .block{
+        width:48%; 
+        .blockList{
+            margin-top:24px!important;
+        }   
+        }
+    }
+}

@@ -1,0 +1,153 @@
+.wrap{
+    .width1280 {
+        margin: 0 auto;
+        width: auto !important;
+        max-width: 1280px !important;
+    }
+    .innerWrap{
+        margin:0 16px;
+        padding-bottom: 150px;
+        .title{
+            text-align: center;
+            margin-top:32px;
+            font-size: 30px;
+            color:#fff;
+            span{
+                color:$mainColor;
+                font-weight: 700;
+            }
+        }
+        .createBtn{
+            margin-top:32px;
+            button{
+                font-weight: bold;
+            }
+        }
+        .pricing{
+            margin-top: 32px;
+            .pricingTitle{
+                font-size: 18px;
+                color: #fff;
+                text-align: center;
+            }
+            .pricingDetail{
+                margin-top: 16px;
+            }
+        }
+        .detailItem{
+            color:#fff;
+            padding: 16px;
+            border-radius: 6px;
+            background-color: rgb(36, 45, 64);
+            h3{
+                font-size:18px;
+                font-weight: 700;
+                margin-bottom: 16px;
+                span{
+                    color:rgb(209 213 219);
+                    margin-left:6px;
+                    font-size: 12px;
+                }
+            }
+            .freeUl{
+                font-size:16px;
+                color:#fff;
+                .detailLiActive{
+                    color:$mainColor
+                }
+                li{
+                    margin-bottom: 10px;
+                    display: flex;
+                    align-items: center;
+                    text-indent: 16px;
+                }
+                li::before{
+                    content:"";
+                    display: inline-block;
+                    background: #fff;
+                    width:8px;
+                    height:8px;
+                    border-radius: 8px;
+                }
+                .detailLiActive::before{
+                    background:$mainColor
+                }
+                
+            }
+        }
+        .infoWrap{
+            margin-top:32px;
+            h3{
+                font-size: 30px;
+                color:$mainColor;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 32px;
+            }
+            .infoItem{
+                margin-bottom: 32px;
+                text-align: center;
+                color:#fff;
+                p{
+                    font-size: 24px;
+                    font-weight: 700;
+                    line-height: 32px;
+                }
+                span{
+                    color:rgb(209 213 219);
+                    display: inline-block;
+                    margin-top: 16px;
+                    font-size: 18px;
+                    line-height: 24px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 541px) {
+    .createBtn {
+        max-width: 30vw;
+        margin:32px auto 0;
+        button{
+            font-weight: bold!important;
+            font-size: 24px!important;
+            line-height: 42px!important;
+            height:42px!important;
+            display: flex!important;
+            align-items: center!important;
+            justify-content: center!important;
+            span{
+                line-height: 20px!important;
+            }
+        }
+    }
+    .pricingDetail{
+        display: flex;
+        justify-content: space-between;
+        .detailItem{
+            width:49%;
+        }
+    }
+}
+
+@media screen and (max-width: 540px){
+    .detailItem{
+        margin-bottom: 16px;
+    }
+    .createBtn {
+        margin:32px auto 0;
+        button{
+            font-weight: bold!important;
+            font-size: 24px!important;
+            line-height: 42px!important;
+            height:42px!important;
+            display: flex!important;
+            align-items: center!important;
+            justify-content: center!important;
+            span{
+                line-height: 20px!important;
+            }
+        }
+    }
+}

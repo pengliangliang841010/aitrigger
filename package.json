@@ -1,0 +1,42 @@
+{
+  "name": "aitrigger",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env APP_ENV=dev next dev",
+    "dev_p": "cross-env APP_ENV=prod next dev",
+    "build": "cross-env APP_ENV=prod next build",
+    "start": "cross-env APP_ENV=prod next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@stripe/react-stripe-js": "^2.3.0",
+    "@stripe/stripe-js": "^2.1.6",
+    "antd": "^5.2.5",
+    "axios": "^1.5.1",
+    "classnames": "^2.3.2",
+    "lodash": "^4.17.21",
+    "mobile-detect": "^1.4.5",
+    "next": "^12.3.4",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "swiper": "^10.3.1"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.22.15",
+    "@types/lodash": "^4.14.199",
+    "@types/node": "16.11.11",
+    "@types/react": "17.0.37",
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "autoprefixer": "^10.4.16",
+    "babel-plugin-import": "^1.13.8",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "12.0.10",
+    "eslint-plugin-react": "^7.28.0",
+    "lib-flexible": "^0.3.2",
+    "postcss-pxtorem": "^6.0.0",
+    "sass": "^1.44.0",
+    "typescript": "4.5.5"
+  }
+}
