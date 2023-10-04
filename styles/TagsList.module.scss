@@ -1,0 +1,100 @@
+.blockList {
+    .pointer {
+        cursor: pointer;
+    }
+
+    .show {
+        display: block;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    margin: 16px 0;
+    padding: 8px;
+
+    .listHeader {
+        font-weight: 600;
+        margin: 4px;
+        padding: 4px;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid rgb(161, 161, 170);
+
+        .headerLeft {
+            color: #fff;
+            font-size: 16px;
+            line-height: 100%;
+        }
+
+        .headerRight {
+            display: flex;
+            align-items: center;
+            height: 24px;
+            margin: 8px;
+            cursor: pointer;
+
+            svg {
+                color: #fff !important;
+            }
+        }
+    }
+
+    .FormItemWrap {
+        margin: 0 8px;
+
+        :global(.ant-form-item .ant-form-item-control-input-content span) {
+            color: #fff !important
+        }
+    }
+
+    .listBody {
+        display: flex;
+        flex-wrap: wrap;
+        padding-bottom: 16px;
+
+
+    }
+
+}
+
+.open {
+    border-radius: 6px;
+    background-color: rgb(36, 45, 64);
+
+    .listHeader {
+        border-bottom-color: transparent
+    }
+}
+
+.bodyItem {
+    cursor: pointer;
+    color: rgb(14, 14, 14);
+    background-color: #fff;
+    font-size: 14px;
+    margin: 8px;
+    padding: 8px;
+    display: inline-block;
+    align-items: center;
+
+    svg {
+        margin-left: 20px;
+        vertical-align: middle;
+    }
+}
+
+.bodyItem.current {
+
+    color: #fff;
+    background-color: $mainColor;
+}
+
+@media screen and (min-width: 541px) {
+
+    .tagMap {
+        padding-top: 5px;
+    }
+}

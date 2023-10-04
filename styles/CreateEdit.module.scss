@@ -21,28 +21,9 @@
         margin: 0 16px;
         padding-bottom: 150px;
 
-        .info {
-            color: #fff;
-            text-align: center;
-            padding-top: 8px;
-
-            h1 {
-                font-size: 24px;
-                font-weight: 700;
-                line-height: 32px;
-                color: #fff;
-            }
-
-            p {
-                line-height: 20px;
-                font-size: 14px;
-                padding: 24px 16px;
-                color: rgb(150, 150, 150)
-            }
-        }
-
         .block {
             position: relative;
+
             .blockMask {
                 position: absolute;
                 top: 0;
@@ -54,8 +35,6 @@
             }
         }
     }
-
-    
 
     .btnWrap {
         position: fixed;
@@ -81,11 +60,15 @@
     .createImgWrap {
         margin: 16px 0;
         padding: 8px;
-
-        flex-direction: column;
         align-items: center;
         display: flex;
         justify-content: center;
+        gap:16px;
+        .transForm{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
         .imgWrap {
             width: 100%;
@@ -121,47 +104,11 @@
         }
     }
 
-    .editWrap {
-        width: 100%;
-        margin: 16px 0;
-        padding: 16px;
-        font-size: 14px;
-        color: #fff;
-        border-radius: 6px;
-        background-color: rgb(36, 45, 64);
+    .optWrap{
+        display: flex;
+        width:100%;
+        align-items: center;
         justify-content: center;
-
-        .editItem {
-            margin-top: 8px;
-            padding-bottom: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .editWrapLeft {
-            align-items: center;
-            justify-content: center;
-            display: flex;
-            gap: 10px;
-
-            .editWrapLeftSvg {
-                padding: 8px;
-                border-radius: 6px;
-                display: inline-block;
-                background-color: $mainColor;
-            }
-        }
-
-        .editWrapRight {
-            color: rgb(150, 150, 150);
-            font-size: 14px;
-
-            span {
-                color: $mainColor;
-                cursor: pointer;
-            }
-        }
     }
 }
 
@@ -186,31 +133,16 @@
             }
         }
     }
-
-    .pcSuit {
-        display: flex;
-        justify-content: space-between;
-
-        .createImgWrap {
-            width: 50%;
-
-        }
-
-        .block {
-            width: 48%;
-            padding-top:8px;
-            .blockList {
-                margin-top: 24px !important;
-            }
-        }
-    }
 }
 
 @media screen and (max-width: 540px){
-    .createImgWrap{
+    .mobileHide{
         display: none!important;
     }
     .createImgWrapReady{
-        display: block!important;
+        display: flex!important;
+    }
+    .createImgWrap{
+        flex-wrap: wrap;
     }
 }
