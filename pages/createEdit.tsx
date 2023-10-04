@@ -34,7 +34,7 @@ const Profile: NextPage = () => {
 
         setTimeout(()=>{
             if (isMobile) {
-                const rollDom = document.getElementById('imgUrl2')　　// 获取想要滚动的dom元素
+                const rollDom = document.getElementById('imgUrl2')// 获取想要滚动的dom元素
                 rollDom && rollDom.scrollIntoView({ block: 'center' })
             }
         },100)

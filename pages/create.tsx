@@ -31,7 +31,7 @@ const Profile: NextPage = () => {
         setImgUrl(undefined)
         setTimeout(()=>{
             if (isMobile) {
-                const rollDom = document.getElementById('imgWrap')　　// 获取想要滚动的dom元素
+                const rollDom = document.getElementById('imgWrap')// 获取想要滚动的dom元素
                 rollDom && rollDom.scrollIntoView({ block: 'center' })
             }
         },100)
@@ -57,7 +57,7 @@ const Profile: NextPage = () => {
         if (!isVip) {
             return
         }
-        let a = document.createElement('a')
+        const a = document.createElement('a')
         a.href = imgUrl as string
         a.download = 'default.png'
         a.dispatchEvent(new MouseEvent('click'))
