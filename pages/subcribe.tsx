@@ -5,7 +5,7 @@ import CheckoutForm from '../components/CheckoutForm'
 import SubcribeStyles from '../styles/Subcribe.module.scss'
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import axios from '../utils/axios'
+import Image from 'next/image'
 import API from '../api.config'
 import { useRouter } from 'next/router'
 
@@ -14,27 +14,28 @@ const Subcribe: NextPage = () => {
     const router = useRouter()
     const payNow = router.query.payNow
 
-    const [openSubscibe,setOpenSubscibe]=useState<boolean>(false)
+    const [openSubscibe, setOpenSubscibe] = useState<boolean>(false)
 
     const [stripePromise, setStripePromise] = useState(null);
 
     const [clientSecret, setClientSecret] = useState('');
 
-    useEffect(()=>{
-        if(payNow){
+    useEffect(() => {
+        if (payNow) {
             setOpenSubscibe(true)
         }
-    },[payNow])
+    }, [payNow])
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
         API['stripe-create-payment-intent']()
             .then((data) => {
                 setClientSecret(data.data.clientSecret)
-    })}, []);
+            })
+    }, []);
 
     useEffect(() => {
-        API['stripe-config']().then( (r) => {
+        API['stripe-config']().then((r) => {
             const { publishableKey } = r.data;
             // @ts-ignore
             setStripePromise(loadStripe(publishableKey));
@@ -47,12 +48,12 @@ const Subcribe: NextPage = () => {
             <div className={SubcribeStyles.innerWrap}>
 
                 <div className={SubcribeStyles.title}>
-                   Join <span>thousands of subscribers</span> <br />
+                    Join <span>thousands of subscribers</span> <br />
                     using Pro Mode!
                 </div>
 
                 <div className={SubcribeStyles.createBtn}>
-                    <Button onClick={()=>setOpenSubscibe(true)} block type="primary">Get Pro Mode</Button>
+                    <Button onClick={() => setOpenSubscibe(true)} block type="primary">Get Pro Mode</Button>
                 </div>
 
                 <div className={SubcribeStyles.pricing}>
@@ -107,6 +108,14 @@ const Subcribe: NextPage = () => {
 
                         <div className={SubcribeStyles.infoItem}>
                             <p>Faster and unlimited generations!</p>
+                            <div className={SubcribeStyles.galleryWrap}>
+                                <div className={SubcribeStyles.galleryImg}>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                </div>
+                                <div className={SubcribeStyles.galleryImg}>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                </div>
+                            </div>
                             <span>
                                 Quickly generate unlimited images with a priority queue for
                                 <br /> Pro members! No credits or tokens required!
@@ -115,6 +124,14 @@ const Subcribe: NextPage = () => {
 
                         <div className={SubcribeStyles.infoItem}>
                             <p>Private mode + no watermark</p>
+                            <div className={SubcribeStyles.galleryWrap}>
+                                <div className={SubcribeStyles.galleryImg}>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                </div>
+                                <div className={SubcribeStyles.galleryImg}>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                </div>
+                            </div>
                             <span>
                                 Generate images privately without watermarks! Private
                                 <br /> images are only visible to you.
@@ -123,6 +140,14 @@ const Subcribe: NextPage = () => {
 
                         <div className={SubcribeStyles.infoItem}>
                             <p>HD Generators</p>
+                            <div className={SubcribeStyles.galleryWrap}>
+                                <div className={SubcribeStyles.galleryImg}>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                </div>
+                                <div className={SubcribeStyles.galleryImg}>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                </div>
+                            </div>
                             <span>
                                 Generate high quality images powered by SDXL!
                             </span>
@@ -130,6 +155,14 @@ const Subcribe: NextPage = () => {
 
                         <div className={SubcribeStyles.infoItem}>
                             <p>Consistent Characters</p>
+                            <div className={SubcribeStyles.galleryWrap}>
+                                <div className={SubcribeStyles.galleryImg}>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                </div>
+                                <div className={SubcribeStyles.galleryImg}>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                </div>
+                            </div>
                             <span>
                                 Use the same character across multiple generations!
                             </span>
@@ -137,6 +170,14 @@ const Subcribe: NextPage = () => {
 
                         <div className={SubcribeStyles.infoItem}>
                             <p>Uncropping</p>
+                            <div className={SubcribeStyles.galleryWrap}>
+                                <div className={SubcribeStyles.galleryImg}>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                </div>
+                                <div className={SubcribeStyles.galleryImg}>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                </div>
+                            </div>
                             <span>
                                 Zoom out to reveal more!
                             </span>
@@ -147,12 +188,12 @@ const Subcribe: NextPage = () => {
                 </div>
 
                 {/* stripe支付模块 */}
-                <Modal title="Subcribe" footer={null} open={openSubscibe} onCancel={()=>{setOpenSubscibe(false)}}>
-                {clientSecret && stripePromise && (
-                    <Elements stripe={stripePromise} options={{ clientSecret, }}>
-                        <CheckoutForm />
-                    </Elements>
-                )}</Modal>
+                <Modal title="Subcribe" footer={null} open={openSubscibe} onCancel={() => { setOpenSubscibe(false) }}>
+                    {clientSecret && stripePromise && (
+                        <Elements stripe={stripePromise} options={{ clientSecret, }}>
+                            <CheckoutForm />
+                        </Elements>
+                    )}</Modal>
 
             </div>
 

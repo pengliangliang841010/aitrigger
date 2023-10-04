@@ -1,10 +1,10 @@
 .container {
     width:100vw;
     position:relative;
-    height:calc(100vh - 72px);
+    height:calc(100 * var(--vh) - 72px);
 
     :global(.swiper){
-        height:calc(100vh - 322px);
+        height:calc(100 * var(--vh) - 322px);
         z-index:3;
         background-color: transparent;
         *{
@@ -17,7 +17,7 @@
         }
     }
     .containerMain{
-        height:calc(100vh - 274px);
+        height:calc(100 * var(--vh) - 274px);
     }
  .swiperWrap{
     margin:0 16px;
@@ -60,7 +60,9 @@
 .infoWrap{
     height:202px;
     padding:0 16px;
-    a{
+    .infoWrapBtn
+    >div{
+        cursor: pointer;
         font-size:18px;
         height :38px;
         line-height: 38px;
@@ -81,7 +83,7 @@
     .infoBtnActive{
         background-color: $mainColor;
         color:#fff;
-        border:1px solid $mainColor
+        border:1px solid $mainColor!important
     }
  }
 

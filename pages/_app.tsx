@@ -4,6 +4,8 @@ import Layout from '../components/Layout'
 import type { AppProps } from 'next/app'
 import useRem from '../hooks/useRem'
 import { ConfigProvider } from 'antd/lib';
+import React from 'react'
+import styleVariables from '../styles/_app.module.scss'
 
 function MyApp({ Component, pageProps }: AppProps) {
   useRem();
@@ -11,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ConfigProvider
         theme={{
           token: {
-            colorPrimary: 'rgb(236, 86, 124)',
+            colorPrimary: styleVariables.colorPrimary,
           },
         }}
       >
