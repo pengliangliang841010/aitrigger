@@ -1,8 +1,9 @@
+import { NextPage } from "next"
 import Link from "next/link"
 import React from "react"
 import Styles from '../styles/404.module.scss'
 
-export default()=>{
+const NotFound:NextPage=()=>{
     return <div className={Styles.wrap}>
         <div className={Styles.width1280}>
             <div className={Styles.inner}>
@@ -15,3 +16,5 @@ export default()=>{
         </div>
     </div>
 }
+
+export default NotFound
