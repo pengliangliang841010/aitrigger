@@ -1,0 +1,36 @@
+.wrap {
+    width: 100vw;
+    height: calc(100 * var(--vh) - 72px);
+
+    .width1280 {
+        margin: 0 auto;
+        width: auto !important;
+        max-width: 1280px !important;
+    }
+        .inner {
+            .innerInfo{
+                display: flex;
+            align-items: center;
+            justify-content: center;
+                span{
+                    font-weight: 700;
+                    margin-right: 10px;
+                    font-size: 24px;
+                }
+            }
+            color: #fff;
+            font-size: 16px;
+            height: calc(100 * var(--vh) - 72px);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            .btn{
+                cursor: pointer;
+                margin-top: 16px;
+                color:$mainColor;
+                display: flex;
+            align-items: center;
+            }
+        }
+    }
