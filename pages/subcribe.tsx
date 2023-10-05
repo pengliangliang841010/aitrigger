@@ -1,4 +1,4 @@
-import { Button, Modal } from 'antd/lib'
+import { Button, Modal, Segmented } from 'antd/lib'
 import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import CheckoutForm from '../components/CheckoutForm'
@@ -20,6 +20,8 @@ const Subcribe: NextPage = () => {
 
     const [clientSecret, setClientSecret] = useState('');
 
+    const [payType, setPayType] = useState<string>('Year')
+
     useEffect(() => {
         if (payNow) {
             setOpenSubscibe(true)
@@ -28,11 +30,12 @@ const Subcribe: NextPage = () => {
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
+        setClientSecret('')
         API['stripe-create-payment-intent']()
             .then((data) => {
                 setClientSecret(data.data.clientSecret)
             })
-    }, []);
+    }, [payType]);
 
     useEffect(() => {
         API['stripe-config']().then((r) => {
@@ -188,7 +191,11 @@ const Subcribe: NextPage = () => {
                 </div>
 
                 {/* stripe支付模块 */}
-                <Modal title="Subcribe" footer={null} open={openSubscibe} onCancel={() => { setOpenSubscibe(false) }}>
+                <Modal getContainer={false} title="Subcribe" footer={null} open={openSubscibe} onCancel={() => { setOpenSubscibe(false) }}>
+                    <div className={SubcribeStyles.segmentedWrap}>
+                        <Segmented value={payType} onChange={(value) => { setPayType(value as string) }} size="large" options={[{ label: 'Month', value: "Month" }, { label: 'Year', value: "Year" }]} />
+                    </div>
+                    <div className={SubcribeStyles.price}>{payType === "Year" ? "$59.99" : "$9.99"}</div>
                     {clientSecret && stripePromise && (
                         <Elements stripe={stripePromise} options={{ clientSecret, }}>
                             <CheckoutForm />

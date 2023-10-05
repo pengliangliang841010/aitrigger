@@ -7,6 +7,18 @@
     .innerWrap{
         margin:0 16px;
         padding-bottom: 150px;
+        .segmentedWrap{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .price{
+            text-align: right;
+            color:$mainColor;
+            font-size: 20px;
+            margin: 10px 0;
+            font-weight: 700;
+        }
         .galleryWrap{
             border-radius: 6px;
             width:100%;
