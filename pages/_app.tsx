@@ -6,10 +6,14 @@ import useRem from '../hooks/useRem'
 import { ConfigProvider } from 'antd/lib';
 import React from 'react'
 import styleVariables from '../styles/_app.module.scss'
+import { Provider } from 'react-redux'
+import { storeWrapper } from '../store'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, ...rest }: AppProps) {
   useRem();
+  const { store,props } = storeWrapper.useWrappedStore(rest)
   return (
+    <Provider store={store}>
     <ConfigProvider
         theme={{
           token: {
@@ -18,10 +22,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         }}
       >
     <Layout>
-      <Component {...pageProps} />
+      <Component {...props.pageProps} />
     </Layout>
     </ConfigProvider>
-
+    </Provider>
   )
 }
 
