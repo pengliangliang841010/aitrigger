@@ -1,10 +1,25 @@
 import { NextPage } from 'next'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ProfileStyles from '../styles/Profile.module.scss'
 import { Row, Col } from 'antd/lib'
 import Image from 'next/image'
+import useLogin from '../hooks/useLogin'
+import { useRouter } from 'next/router'
+import { messageCus } from '../helper'
 
-const Profile: NextPage = () => <div className={ProfileStyles.wrap}>
+const Profile: NextPage = () => {
+
+    const {loginInfo}=useLogin()
+    const router=useRouter()
+
+    useEffect(()=>{
+        if(loginInfo==="loginOut"){
+            messageCus.error('please login in!')
+            router.push('/login')
+        }
+    },[loginInfo])
+
+return <div className={ProfileStyles.wrap}>
     <div className={ProfileStyles.width1280}>
         <div className={ProfileStyles.innerWrap}>
             <Row gutter={[{ xs: 8, sm: 16, md: 24 }, { xs: 8, sm: 16, md: 24 }]}>
@@ -25,6 +40,6 @@ const Profile: NextPage = () => <div className={ProfileStyles.wrap}>
             </Row>
         </div>
     </div>
-</div>
+</div>}
 
 export default Profile

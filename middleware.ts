@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server'
- 
-const verifyPath = ['/profile']
+import { NextResponse } from 'next/server';
+
+const verifyPath = ['/abc']
  
 export async function middleware(req: NextRequest) {
  const { pathname } = req.nextUrl;
@@ -9,12 +9,9 @@ export async function middleware(req: NextRequest) {
   // 编写认证中间件
   const auth = async (authorization: string) => {
     // { Authorization: Bearer token}
-    const token = authorization.replace('Bearer ', '');
     try {
-      // 报错：token 被篡改或者为空，属于 401 错误：未认证错误。
-    //   await jose.jwtVerify(
-    //     token, new TextEncoder().encode(JWT_SECRET)
-    //   );
+      //const res=await adminAuth.verifyIdToken(authorization)
+      //console.log(res,'22222')
     } catch (err) {
       return NextResponse.redirect(new URL('/login', req.url));
     }
@@ -24,14 +21,14 @@ export async function middleware(req: NextRequest) {
   }
  
   const isNeedVerify = verifyPath.some(path => pathname.indexOf(path) !== -1);
-  console.log('isNeedVerify',isNeedVerify)
+
   // 校验逻辑
   if (isNeedVerify) {
     // return NextResponse.redirect(new URL('/login', req.url));
     /* 权限校验 */
-    const authorization = req.headers.get('Authorization');
-    if (authorization) {
-      return await auth(authorization as string);
+    const accessToken = req.cookies.get('accessToken')
+    if (accessToken) {
+      return await auth(accessToken as string);
     } else {
       return NextResponse.redirect(new URL('/login', req.url));
     }

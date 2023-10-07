@@ -5,6 +5,7 @@ import { NextPage } from 'next'
 import React, { useState } from 'react'
 import LoginStyles from '../styles/Login.module.scss'
 import { useRouter } from 'next/router'
+import useLogin from '../hooks/useLogin'
 
 const FindPassward: NextPage = () => {
 
@@ -12,7 +13,8 @@ const FindPassward: NextPage = () => {
 
     const router = useRouter()
     const confirmPassword = router.query.confirmPassword
-console.log(router)
+    const {resetByEmail}=useLogin()
+
     const [loading, setLoading] = useState<boolean>(false)
 
     const handleSubmit = () => {
@@ -22,10 +24,15 @@ console.log(router)
                 return
             }
             setLoading(true)
+            
             try {
-                // todo
-                // 1.调接口,根据类型决定是走登录还是注册接口，成功后都一样，算登录成功
-                // 页面跳转，跳转到个人资料页面
+                if(!confirmPassword){
+                    resetByEmail(res.email).then(_res=>{
+                        messageCus.success("email has sent!")
+                        router.push('/login')
+                    })
+
+                }
             } catch (err) {
                 if  (err instanceof  Error)  {
                     messageCus.error(err.name + ":" + err.message);

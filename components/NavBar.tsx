@@ -5,6 +5,7 @@ import { useIsMobile } from '../hooks/isMobile';
 import useLogin from '../hooks/useLogin';
 import { get } from 'lodash'
 import { messageCus } from '../helper';
+import { useRouter } from 'next/router'
 
 function NavBar() {
     
@@ -14,7 +15,11 @@ function NavBar() {
 
     const navRef = useRef<HTMLDivElement>();
 
-    const { isLogin, setIsLogin } = useLogin();
+    const {loginInfo,loginOut}=useLogin()
+
+    const isLogin=typeof(loginInfo)==="object"
+
+    const router=useRouter()
 
     const toggleNav = (e: any) => {
         e.stopPropagation()
@@ -22,7 +27,9 @@ function NavBar() {
     }
 
     const handleLogout = () => {
-        setIsLogin(false)
+        loginOut().then(()=>{
+            router.push('/login')
+        })
     }
 
     useEffect(() => {
