@@ -64,6 +64,10 @@
         :global(.ant-input-status-error){
             border-color:$mainColor!important;
         }
+        :global(.ant-btn-background-ghost:disabled){
+            color:$mainColor!important;
+            border-color:$mainColor!important;
+        }
 
         .btnWrap{
             display: flex;

@@ -23,7 +23,8 @@ export default handlerWrapper({
     if(vipTime){
       await updateUservipTime({ ...req.body})
     }else{
-      await updateUserlastLoginAt(id)
+      // 连带第三方的登录
+      await updateUserlastLoginAt({ ...req.body})
     }
     return {
       message: 'success'

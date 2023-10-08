@@ -37,7 +37,7 @@ const Login: NextPage = () => {
                     router.push('/profile')
                     http({
                         method: 'post',
-                        url: '/user',
+                        url: '/api/user',
                         data: {
                           id: uid,
                           email
@@ -51,7 +51,7 @@ const Login: NextPage = () => {
                     router.push('/profile')
                     http({
                         method: 'put',
-                        url: '/user',
+                        url: '/api/user',
                         data: {
                           id: uid,
                         }
@@ -69,17 +69,19 @@ const Login: NextPage = () => {
     }
 
     const handleGoogle = async () => {
-        const {uid}=await singnWithGoogle().then((res)=>{
+        const res=await singnWithGoogle().then((res)=>{
             return (res as UserCredential).user
         })
         //2.成功后页面跳转，跳转到个人资料页面
+        const {uid,email}=res;
         messageCus.success('sign in success')
         router.push('/profile')
         http({
             method: 'put',
-            url: '/user',
+            url: '/api/user',
             data: {
               id: uid,
+              email
             }
           })
     }

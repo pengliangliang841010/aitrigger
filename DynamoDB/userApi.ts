@@ -43,16 +43,22 @@ export const addUser = async (param: IUser) => {
   return response;
 }
 
-export const updateUserlastLoginAt = async (id: IUser["id"]) => {
+export const updateUserlastLoginAt = async (param: IUser) => {
+  const ExpressionAttributeValues={
+    ":lastLoginAt": dayjs().valueOf() + "",
+  }
+  let UpdateExpression= "set lastLoginAt = :lastLoginAt"
+  if(param.email){
+    ExpressionAttributeValues[':email']=param.email
+    UpdateExpression="set lastLoginAt = :lastLoginAt , email = :email"
+  }
   const command = new UpdateCommand({
     TableName: aitriggerUser,
     Key: {
-      id: id
+      id: param.id
     },
-    UpdateExpression: "set lastLoginAt = :lastLoginAt",
-    ExpressionAttributeValues: {
-      ":lastLoginAt": dayjs().valueOf() + "",
-    },
+    UpdateExpression,
+    ExpressionAttributeValues,
     ReturnValues: "ALL_NEW",
   });
 
