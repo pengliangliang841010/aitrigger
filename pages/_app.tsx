@@ -5,25 +5,20 @@ import type { AppProps } from 'next/app'
 import useRem from '../hooks/useRem'
 import { ConfigProvider } from 'antd/lib';
 import React, { useEffect } from 'react'
-import styleVariables from '../styles/_app.module.scss'
+import theme from '../antdTheme'
+
+// import {getUser} from '../DynamoDB/userApi'
 
 function MyApp({ Component, pageProps }: AppProps) {
   useRem();
 
+  // useEffect(()=>{
+  //   window.getUser=getUser
+  // },[])
+
   return (
     <ConfigProvider
-        theme={{
-          components:{
-            Segmented:{
-              itemSelectedBg:styleVariables.colorPrimary,
-              itemSelectedColor:'#fff'
-            },
-          },
-          token: {
-            colorPrimary: styleVariables.colorPrimary,
-            fontFamily:'Open Sans'
-          },
-        }}
+        theme={theme}
       >
     <Layout>
       <Component {...pageProps} />

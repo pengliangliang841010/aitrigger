@@ -7,6 +7,8 @@ import LoginStyles from '../styles/Login.module.scss'
 import Link from 'next/link'
 import useLogin from '../hooks/useLogin'
 import { useRouter } from 'next/router'
+import http from '../utils/axios'
+import { UserCredential } from 'firebase/auth'
 
 const Login: NextPage = () => {
 
@@ -31,12 +33,29 @@ const Login: NextPage = () => {
                     })
                     const {uid,email}=user;
                     messageCus.success('sign up success')
+                    
                     router.push('/profile')
-                    // todo入库
+                    http({
+                        method: 'post',
+                        url: '/user',
+                        data: {
+                          id: uid,
+                          email
+                        }
+                      })
                 }else{
-                    await signIn(res.email,res.password)
+                    const {uid}=await signIn(res.email,res.password).then((userCredential)=>{
+                        return userCredential.user;
+                    })
                     messageCus.success('sign in success')
                     router.push('/profile')
+                    http({
+                        method: 'put',
+                        url: '/user',
+                        data: {
+                          id: uid,
+                        }
+                      })
                 }
                 
             } catch (err) {
@@ -49,11 +68,20 @@ const Login: NextPage = () => {
         })
     }
 
-    const handleGoogle = () => {
-        singnWithGoogle().then(()=>{
-            router.push('/profile')
+    const handleGoogle = async () => {
+        const {uid}=await singnWithGoogle().then((res)=>{
+            return (res as UserCredential).user
         })
         //2.成功后页面跳转，跳转到个人资料页面
+        messageCus.success('sign in success')
+        router.push('/profile')
+        http({
+            method: 'put',
+            url: '/user',
+            data: {
+              id: uid,
+            }
+          })
     }
 
     const formDom = <Form layout="vertical" form={form}>
