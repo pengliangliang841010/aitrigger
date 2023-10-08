@@ -27,6 +27,10 @@ export default() => {
       return sendPasswordResetEmail(auth, email)
     }
 
+    const clientOut=()=>{
+      cookie.remove('accessToken');
+      setLoginInfo('loginOut')
+    }
 
     const singnWithGoogle=()=>{
       return signInWithPopup(auth, googleProvider)
@@ -61,14 +65,14 @@ export default() => {
                 setLoginInfo(user)
                 cookie.set('accessToken', get(user,'accessToken',''));
             } else {
-              cookie.remove('accessToken');
-              setLoginInfo('loginOut')
+              clientOut()
             }
           });
     },[])
     
 
     return {
+        clientOut,
         loginInfo,setLoginInfo,
         loginOut,
         singnWithGoogle,
