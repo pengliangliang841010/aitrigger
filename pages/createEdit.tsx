@@ -6,9 +6,9 @@ import {  Button } from 'antd/lib';
 import Image from 'next/image'
 import Loading from '../components/Loading'
 import { useIsMobile } from '../hooks/isMobile'
-import { ITagItem } from '../interfaces/create';
 import { getLocal } from '../utils/localStorage';
-import TagsList from '../components/TagsList';
+import { ITagItemCurrent } from '../interfaces/createCurrent';
+import TagsListCurrent from '../components/TagsListCurrent';
 
 const Profile: NextPage = () => {
 
@@ -23,7 +23,7 @@ const Profile: NextPage = () => {
 
     const [isVip, setIsVip] = useState<boolean>(true)
 
-    const [formData, setFormData] = useState<ITagItem>()
+    const [formData, setFormData] = useState<ITagItemCurrent>()
 
     const handleCreate = () => {
         if (creating) {
@@ -48,9 +48,9 @@ const Profile: NextPage = () => {
     }
 
     useEffect(() => {
-        const { imgUrl, formData } = getLocal('temp')
+        const { imgUrl, tagsMap } = getLocal('temp')
         setImgUrl(imgUrl)
-        setFormData(formData)
+        setFormData(tagsMap)
     }, [])
 
     return <div className={CreateEditStyles.wrap}>
@@ -89,7 +89,7 @@ const Profile: NextPage = () => {
 
 
                 {editTag && <div className={CreateEditStyles.block}>
-                    <TagsList formData={formData} />
+                    <TagsListCurrent formData={formData} />
                     {creating && <div className={CreateEditStyles.blockMask}>
                     </div>}
                 </div>}

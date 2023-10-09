@@ -7,9 +7,7 @@ import Image from 'next/image'
 import Loading from '../components/Loading'
 import { useIsMobile } from '../hooks/isMobile'
 import { setLocal } from '../utils/localStorage';
-import TagsList from '../components/TagsList';
-
-
+import TagsListCurrent from '../components/TagsListCurrent';
 
 const Profile: NextPage = () => {
 
@@ -48,7 +46,7 @@ const Profile: NextPage = () => {
         // 图片信息和tagsMap暂时存本地把
         setLocal('temp', {
             imgUrl,
-            formData:(tagList.current as any)?.form.getFieldsValue()
+            tagsMap:(tagList.current as any)?.tagsMap
         })
         window.open('/createEdit')
     }
@@ -119,7 +117,7 @@ const Profile: NextPage = () => {
                     </div>
 
                     <div className={CreateStyles.block}>
-                        <TagsList ref={tagList} />
+                        <TagsListCurrent ref={tagList} />
                         {creating && <div className={CreateStyles.blockMask}>
                         </div>}
                     </div>
