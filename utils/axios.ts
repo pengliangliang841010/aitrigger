@@ -53,7 +53,7 @@ const errorHandle = (status: number, other: any) => {
 // 创建axios实例
 const instance = axios.create({ timeout: 1000 * 12 });
 // 设置post请求头
-instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+instance.defaults.headers.post['Content-Type'] = 'application/json';
 /** 
  * 请求拦截器 
  * 每次请求前，如果存在token则在请求头中携带token 

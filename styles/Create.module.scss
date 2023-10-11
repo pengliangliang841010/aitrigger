@@ -43,6 +43,7 @@
 
         .block {
             position: relative;
+
             .blockMask {
                 position: absolute;
                 top: 0;
@@ -52,10 +53,21 @@
                 display: block;
                 z-index: 2;
             }
+
+            :global(.ant-form-item-label >label) {
+                color: #fff;
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            :global(.ant-select-selection-item) {
+                color: $mainColor
+            }
+
         }
     }
 
-    
+
 
     .btnWrap {
         position: fixed;
@@ -197,8 +209,9 @@
         }
 
         .block {
+            margin-top: 16px;
+            padding-top: 8px;
             width: 48%;
-            padding-top:8px;
             .blockList {
                 margin-top: 24px !important;
             }
@@ -206,11 +219,12 @@
     }
 }
 
-@media screen and (max-width: 540px){
-    .createImgWrap{
-        display: none!important;
+@media screen and (max-width: 540px) {
+    .createImgWrap {
+        display: none !important;
     }
-    .createImgWrapReady{
-        display: block!important;
+
+    .createImgWrapReady {
+        display: block !important;
     }
 }

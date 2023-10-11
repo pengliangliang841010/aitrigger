@@ -2,12 +2,40 @@ import { NextPage } from 'next'
 import React, { useRef, useState } from 'react'
 import CreateStyles from '../styles/Create.module.scss'
 import clsx from 'classnames';
-import { Button } from 'antd/lib';
+import { Button, Form, Select } from 'antd/lib';
 import Image from 'next/image'
 import Loading from '../components/Loading'
 import { useIsMobile } from '../hooks/isMobile'
 import { setLocal } from '../utils/localStorage';
 import TagsListCurrent from '../components/TagsListCurrent';
+import { useForm } from 'antd/lib/form/Form';
+import http from '../utils/axios'
+
+export const generatorDict = [
+    { value: 'women_crisp', label: 'Women: Detailed' },
+    { value: 'women_accurate', label: 'Women: Accurate' },
+    { value: 'women_real', label: 'Women: Realistic' },
+    { value: 'women', label: 'Women: Legacy' },
+    { value: 'women_hd', label: 'Women: HD (SDXL)' },
+    { value: 'women_intricate', label: 'Women: Intricate (SDXL)' },
+    { value: 'anime', label: 'Anime: Base' },
+    { value: 'anime_detailed', label: 'Anime: Detailed' },
+    { value: 'men', label: 'Men: Base' },
+    { value: 'men_detailed', label: 'Men: Base' },
+    { value: 'doggystyle', label: 'Doggystyle' },
+    { value: 'blowjob', label: 'Blowjob' },
+    { value: 'missionary', label: 'Missionary' },
+    { value: 'titfuck', label: 'Titfuck' },
+]
+
+export const ratioDict = [
+    { value: '3:4', label: '3:4' },
+    { value: '9:16', label: '9:16' },
+    { value: '1:1', label: '1:1' },
+    { value: '4:3', label: '4:3' },
+    { value: '16:9', label: '16:9' },
+]
+
 
 const Profile: NextPage = () => {
 
@@ -19,7 +47,9 @@ const Profile: NextPage = () => {
 
     const [isVip, setIsVip] = useState<boolean>(true)
 
-    const tagList=useRef()
+    const tagList = useRef()
+
+    const [form] = useForm()
 
     const handleCreate = () => {
         if (creating) {
@@ -27,13 +57,31 @@ const Profile: NextPage = () => {
         }
         setCreating(true)
         setImgUrl(undefined)
-        setTimeout(()=>{
+
+        const formData = form.getFieldsValue()
+
+        const data = {
+            ...formData,
+            isPrivate: false,
+            prompt: (tagList.current as any)?.tagsMap,
+        }
+
+        // http({
+        //     method: 'post',
+        //     url: '/api/create',
+        //     data: {data}
+        //   })
+        http.post('https://us-central1-dreampen-2273f.cloudfunctions.net/submitPromptAuth', { "data": { "prompt": { "BASE": [], "TAGS": [], "ENVIRONMENT": [], "STYLE": [], "VIEW": [], "CLOTHING": [], "NUMBER": [], "AGE": [], "FACE": [], "ACTION": [], "TITFUCK_VIEW": [], "TITFUCK_TAGS": [], "TITFUCK_POSE": [], "ANIME_ACTION": [], "ANIME_SUBJECT": [], "ANIME_TAGS": [], "ANIME_STYLE": [], "MEN_TAGS": [], "MEN_BASE": [], "NEGATIVE": [], "CHARACTER": [] }, "generator": "women_crisp", "isPrivate": false, "aspectRatio": "1:1" } }).then(function (response) {
+            console.log(response);
+        })
+
+        setTimeout(() => {
             // if (isMobile) {
-                const rollDom = document.getElementById('imgWrap')// 获取想要滚动的dom元素
-                rollDom && rollDom.scrollIntoView({ block: 'center' })
+            const rollDom = document.getElementById('imgWrap')// 获取想要滚动的dom元素
+            rollDom && rollDom.scrollIntoView({ block: 'center' })
             // }
-        },100)
-        
+        }, 100)
+
         setTimeout(() => {
             setImgUrl('/banner1.webp')
             setCreating(false)
@@ -46,7 +94,7 @@ const Profile: NextPage = () => {
         // 图片信息和tagsMap暂时存本地把
         setLocal('temp', {
             imgUrl,
-            tagsMap:(tagList.current as any)?.tagsMap
+            tagsMap: (tagList.current as any)?.tagsMap
         })
         window.open('/createEdit')
     }
@@ -117,6 +165,16 @@ const Profile: NextPage = () => {
                     </div>
 
                     <div className={CreateStyles.block}>
+                        <div>
+                            <Form layout='vertical' form={form}>
+                                <Form.Item label="Generator" name="generator">
+                                    <Select options={generatorDict} size='large' />
+                                </Form.Item>
+                                <Form.Item label="Ratio" name="aspectRatio">
+                                    <Select options={ratioDict} size="large" />
+                                </Form.Item>
+                            </Form>
+                        </div>
                         <TagsListCurrent ref={tagList} />
                         {creating && <div className={CreateStyles.blockMask}>
                         </div>}
