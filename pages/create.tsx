@@ -10,6 +10,7 @@ import { setLocal } from '../utils/localStorage';
 import TagsListCurrent from '../components/TagsListCurrent';
 import { useForm } from 'antd/lib/form/Form';
 import http from '../utils/axios'
+import useVip from '../hooks/useVip';
 
 export const generatorDict = [
     { value: 'women_crisp', label: 'Women: Detailed' },
@@ -41,11 +42,11 @@ const Profile: NextPage = () => {
 
     const isMobile = useIsMobile()
 
+    const { isVip } = useVip()
+
     const [imgUrl, setImgUrl] = useState<string>()
 
     const [creating, setCreating] = useState<boolean>(false)
-
-    const [isVip, setIsVip] = useState<boolean>(true)
 
     const tagList = useRef()
 
@@ -88,9 +89,16 @@ const Profile: NextPage = () => {
         }, 5000)
     }
 
-    const saveToProfile = () => { }
+    const saveToProfile = () => {
+        if (!isVip) {
+            return
+        }
+     }
 
     const handleEditImg = () => {
+        if (!isVip) {
+            return
+        }
         // 图片信息和tagsMap暂时存本地把
         setLocal('temp', {
             imgUrl,
@@ -126,11 +134,11 @@ const Profile: NextPage = () => {
                             {!!imgUrl && <Image src={imgUrl} layout="fill" objectFit='contain' ></Image>}
                             {(!imgUrl && !creating) && <div className={CreateStyles.placeHolder}> Choose tags to generate images here</div>}
                             {(!imgUrl && creating) && <div className={CreateStyles.placeHolder}> generating ...
-                                <span>
+                                {isVip?<span>You are VIP, we will accelerate the generation for you</span>:<><span>
                                     waiting too long?
                                 </span>
                                 <br />
-                                <Button onClick={() => window.open('/subcribe', '_blank')} type='primary' size='large' ghost> Go Premium </Button>
+                                <Button onClick={() => window.open('/subcribe', '_blank')} type='primary' size='large' ghost> Go Premium </Button></>}
                                 <Loading></Loading></div>}
                         </div>
 
@@ -167,10 +175,10 @@ const Profile: NextPage = () => {
                     <div className={CreateStyles.block}>
                         <div>
                             <Form layout='vertical' form={form}>
-                                <Form.Item label="Generator" name="generator">
+                                <Form.Item initialValue='women_crisp' label="Generator" name="generator">
                                     <Select options={generatorDict} size='large' />
                                 </Form.Item>
-                                <Form.Item label="Ratio" name="aspectRatio">
+                                <Form.Item initialValue="1:1" label="Ratio" name="aspectRatio">
                                     <Select options={ratioDict} size="large" />
                                 </Form.Item>
                             </Form>

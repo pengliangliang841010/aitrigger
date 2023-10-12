@@ -168,7 +168,11 @@
         .editWrapRight {
             color: rgb(150, 150, 150);
             font-size: 14px;
-
+            text-align: right;
+            white-space: nowrap;
+            text-decoration: dotted;
+            text-overflow: ellipsis;
+            overflow: hidden;
             span {
                 color: $mainColor;
                 cursor: pointer;
