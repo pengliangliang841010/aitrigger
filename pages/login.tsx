@@ -2,7 +2,7 @@
 import { Input, Form, Button, Tabs } from 'antd/lib'
 import { messageCus } from "../helper"
 import { NextPage } from 'next'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import LoginStyles from '../styles/Login.module.scss'
 import Link from 'next/link'
 import useLogin from '../hooks/useLogin'
@@ -87,14 +87,14 @@ const Login: NextPage = () => {
     }
 
     const formDom = <Form layout="vertical" form={form}>
-        <Form.Item label="Email" name="email" rules={[{ required: true, message: '请输入' }, { type: 'email', message: "邮箱格式不正确" }]}>
+        <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Enter' }, { type: 'email', message: "Incorrect email format" }]}>
             <Input placeholder="Email" />
         </Form.Item>
-        <Form.Item label="Password" name="password" rules={[{ required: true, message: '请输入' }]}>
+        <Form.Item label="Password" name="password" rules={[{ required: true, message: 'Enter' }]}>
             <Input.Password placeholder="Password" />
         </Form.Item>
 
-        {currentTabKey==="regist"&&<Form.Item label="请再次输入密码" name="password2" rules={[{ required: true,message:'请输入' },({ getFieldValue }) => ({
+        {currentTabKey==="regist"&&<Form.Item label="Please enter the password again" name="password2" rules={[{ required: true,message:'Enter' },({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
@@ -105,7 +105,7 @@ const Login: NextPage = () => {
             <Input.Password placeholder="Password" />
         </Form.Item>}
 
-        <div className={LoginStyles.btnWrapFirst}><Button onClick={handleSubmit} loading={loading} block size='large' type='primary'>{currentTabKey === "login" ? "登录" : "注册"}</Button></div>
+        <div className={LoginStyles.btnWrapFirst}><Button onClick={handleSubmit} loading={loading} block size='large' type='primary'>{currentTabKey === "login" ? "Sign in" : "Sign up"}</Button></div>
         {currentTabKey === "login" && <div className={LoginStyles.reset}><Link href="/findPassword">Reset password</Link></div>}
         <div className={LoginStyles.btnWrap}><Button disabled={loading} onClick={handleGoogle} block size='large' type="primary" ghost>Sign in with Google</Button></div>
 
@@ -121,12 +121,12 @@ const Login: NextPage = () => {
                         onChange={onChange}
                         items={[
                             {
-                                label: `登录`,
+                                label: `Sign in`,
                                 key: 'login',
                                 children: formDom,
                             },
                             {
-                                label: `注册`,
+                                label: `Sign up`,
                                 key: 'regist',
                                 children: formDom,
                             },

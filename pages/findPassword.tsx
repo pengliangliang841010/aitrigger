@@ -46,10 +46,10 @@ const FindPassward: NextPage = () => {
     const formDom = <Form layout="vertical" form={form}>
 
         {!!confirmPassword&&<>
-            <Form.Item label="Password" name="password" rules={[{ required: true,message:'请输入' }]}>
+            <Form.Item label="Password" name="password" rules={[{ required: true,message:'Enter' }]}>
             <Input.Password placeholder="Password" />
         </Form.Item>
-        <Form.Item label="请再次输入密码" name="password2" rules={[{ required: true,message:'请输入' },({ getFieldValue }) => ({
+        <Form.Item label="Please enter the password again" name="password2" rules={[{ required: true,message:'Enter' },({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
@@ -61,11 +61,11 @@ const FindPassward: NextPage = () => {
         </Form.Item>
         </>}
 
-        {!confirmPassword&&<Form.Item label="Email" name="email" rules={[{ required: true, message: '请输入' }, { type: 'email', message: "邮箱格式不正确" }]}>
+        {!confirmPassword&&<Form.Item label="Email" name="email" rules={[{ required: true, message: 'Enter' }, { type: 'email', message: "Incorrect email format" }]}>
             <Input placeholder="Email" />
         </Form.Item>}
 
-        <div className={LoginStyles.btnWrapFirst}><Button onClick={handleSubmit} loading={loading} block size='large' type='primary'>确定</Button></div>
+        <div className={LoginStyles.btnWrapFirst}><Button onClick={handleSubmit} loading={loading} block size='large' type='primary'>Ok</Button></div>
     </Form>
 
     return <div className={LoginStyles.formWrap}>
@@ -75,7 +75,7 @@ const FindPassward: NextPage = () => {
                     <Tabs centered
                         items={[
                             {
-                                label: `${confirmPassword?"请输入密码":'请输入邮箱'}`,
+                                label: `${confirmPassword?"Please enter the password":'Please enter your email address'}`,
                                 key: 'findPassword',
                                 children: formDom,
                             }

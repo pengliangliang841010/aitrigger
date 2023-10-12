@@ -31,7 +31,7 @@ return <div className={ProfileStyles.wrap}>
                             key={item}
                             objectFit='contain'
                             layout="fill"
-                            src="/banner1.webp" alt="加载失败">
+                            src="/banner1.webp" alt="load failed">
 
                         </Image>
                         </div>

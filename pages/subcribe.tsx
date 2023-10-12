@@ -113,10 +113,10 @@ const Subcribe: NextPage = () => {
                             <p>Faster and unlimited generations!</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -129,10 +129,10 @@ const Subcribe: NextPage = () => {
                             <p>Private mode + no watermark</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -145,10 +145,10 @@ const Subcribe: NextPage = () => {
                             <p>HD Generators</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -160,10 +160,10 @@ const Subcribe: NextPage = () => {
                             <p>Consistent Characters</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -175,10 +175,10 @@ const Subcribe: NextPage = () => {
                             <p>Uncropping</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="加载失败"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>

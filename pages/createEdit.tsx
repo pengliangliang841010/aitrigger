@@ -84,7 +84,7 @@ const Profile: NextPage = () => {
                     </div>
 
                     {!!imgUrl && <div className={CreateEditStyles.optWrap}>
-                        <Button onClick={() => { setEditTag(true) }} type="primary" size="large">编辑tags</Button>
+                        <Button onClick={() => { setEditTag(true) }} type="primary" size="large">Edit tags</Button>
                     </div>}
 
 
