@@ -123,7 +123,7 @@ const Profile: NextPage = () => {
 
                 <div className={CreateStyles.info} id="info">
                     <h1>Generate your favorite</h1>
-                    <p>To generate an image, please select your label and click "Generate" ↓</p>
+                    <p>To generate an image, please select your label and click Generate ↓</p>
                 </div>
 
                 <div className={CreateStyles.pcSuit}>
