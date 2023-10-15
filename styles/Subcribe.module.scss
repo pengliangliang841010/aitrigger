@@ -12,6 +12,57 @@
             align-items: center;
             justify-content: center;
         }
+        .priceInfo{
+            text-align: center;
+            h3{
+                margin:16px 0 0;
+                color:$mainColor;
+                font-size: 18px;
+            }
+        }
+        .priceId{
+            margin-top: 4px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+            .priceItem{
+                border:1px solid rgba(0, 0, 0, 0.3);
+                border-radius: 4px;
+                padding:10px;
+                cursor: pointer;
+                white-space: nowrap;
+                .priceItemTitle{
+                    font-size: 14px;
+                }
+                .priceItemCount{
+                    font-size: 16px;
+                    font-weight: 700;
+                    color: $mainColor;
+                }
+            }
+            .priceItemActive{
+                border-color: $mainColor;
+                .priceItemTitle{
+                    color: $mainColor;
+                }
+            }
+        }
+        .payBtn{
+            margin-top: 25px;
+            button{
+                font-weight: bold!important;
+                font-size: 20px!important;
+                line-height: 36px!important;
+                height:36px!important;
+                display: flex!important;
+                align-items: center!important;
+                justify-content: center!important;
+                span{
+                    line-height: 36px!important;
+                }
+            }
+        }
         .price{
             text-align: right;
             color:$mainColor;

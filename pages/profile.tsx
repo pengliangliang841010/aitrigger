@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, } from 'react'
 import ProfileStyles from '../styles/Profile.module.scss'
-import { Row, Col } from 'antd/lib'
+import { Skeleton } from 'antd/lib'
 import Image from 'next/image'
 import useLogin from '../hooks/useLogin'
 import { useRouter } from 'next/router'
@@ -16,7 +16,7 @@ const Profile: NextPage = () => {
     const { loginInfo } = useLogin()
 
     const router = useRouter()
-    const { vipTime, isVip } = useVip()
+    const { isVip, loading } = useVip()
 
     useEffect(() => {
         if (loginInfo === 'loginOut') {
@@ -27,16 +27,19 @@ const Profile: NextPage = () => {
 
     const toSubcribeBtn = <span className={ProfileStyles.toSubcribeBtn}><Link href="/subcribe">Get Pro Mode</Link></span>
 
+    const toCreateBtn = <div className={`${ProfileStyles.toSubcribeBtn} ${ProfileStyles.mt10}`}><Link href="/create">go to create</Link></div>
+
+
     return <div className={ProfileStyles.wrap}>
         <div className={ProfileStyles.width1280}>
             <div className={ProfileStyles.innerWrap}>
                 <div className={ProfileStyles.info}>
                     Hi! <span>{get(loginInfo, 'email', '')}</span>
-                    <div className={ProfileStyles.vipInfo}>
-                        {!vipTime && toSubcribeBtn}
-                        {vipTime && !isVip && <div>Your VIP has expired on{vipTime}<div className={ProfileStyles.mt10}>{toSubcribeBtn}</div></div>}
-                        {vipTime && isVip && <div>Your VIP will expire on {vipTime}<div className={ProfileStyles.mt10}>got more time!{toSubcribeBtn}</div></div>}
-                    </div>
+                    {loading && <div className={ProfileStyles.vipInfo}><Skeleton active /></div>}
+                    {!loading && <div className={ProfileStyles.vipInfo}>
+                        {!isVip && toSubcribeBtn}
+                        {isVip && <div>You have obtained the Pro version<br />{toCreateBtn}</div>}
+                    </div>}
                 </div>
                 {/* <Row gutter={[{ xs: 8, sm: 16, md: 24 }, { xs: 8, sm: 16, md: 24 }]}>
 

@@ -133,7 +133,7 @@ const Profile: NextPage = () => {
                         <div id="imgWrap" className={CreateStyles.imgWrap}>
                             {!!imgUrl && <Image src={imgUrl} layout="fill" objectFit='contain' ></Image>}
                             {(!imgUrl && !creating) && <div className={CreateStyles.placeHolder}> Choose tags to generate images here</div>}
-                            {(!imgUrl && creating) && <div className={CreateStyles.placeHolder}> generating ...
+                            {(!imgUrl && creating) && <div className={CreateStyles.placeHolder}> generating ...<br/>
                                 {isVip?<span>You are VIP, we will accelerate the generation for you</span>:<><span>
                                     waiting too long?
                                 </span>

@@ -9,6 +9,7 @@ import { useIsMobile } from '../hooks/isMobile'
 import { getLocal } from '../utils/localStorage';
 import { ITagItemCurrent } from '../interfaces/createCurrent';
 import TagsListCurrent from '../components/TagsListCurrent';
+import useVip from '../hooks/useVip';
 
 const Profile: NextPage = () => {
 
@@ -21,11 +22,16 @@ const Profile: NextPage = () => {
 
     const [creating, setCreating] = useState<boolean>(false)
 
-    const [isVip, setIsVip] = useState<boolean>(true)
+    const { isVip } = useVip()
 
     const [formData, setFormData] = useState<ITagItemCurrent>()
 
     const handleCreate = () => {
+
+        if(!isVip){
+            return
+        }
+
         if (creating) {
             return
         }

@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+import { ICreateCheckoutSession, IProducts, IStatus } from './interfaces/stripe';
 import axios from './utils/axios'
 
 const credentials = {
@@ -9,6 +11,7 @@ const credentials = {
 const mapEnv = {
     'dev': {
         STRIPEGTW: 'http://localhost:3000',
+        PAYGRW: "http://54.144.83.186:9996",
         firebaseConfig: {
             apiKey: "AIzaSyDXjF21JliwZrdHnX6eLjDWlNBG6Jc6XHc",
             authDomain: "aitrigger-d4d70.firebaseapp.com",
@@ -21,6 +24,7 @@ const mapEnv = {
         credentials,
     },
     'prod': {
+        PAYGRW: "http://54.144.83.186:9996",
         firebaseConfig: {
             apiKey: "AIzaSyDXjF21JliwZrdHnX6eLjDWlNBG6Jc6XHc",
             authDomain: "aitrigger-d4d70.firebaseapp.com",
@@ -39,6 +43,9 @@ export const envGtw = mapEnv[process.env.APP_ENV || 'dev'] || mapEnv.dev
 export default {
     ['stripe-create-payment-intent']: () => axios(`${envGtw.STRIPEGTW}/create-payment-intent`),
     ['stripe-config']: () => axios(`${envGtw.STRIPEGTW}/config`),
+    getAllProducts: () => axios<any, AxiosResponse<IProducts>>(`${envGtw.PAYGRW}/get_all_products`),
+    createCheckoutSession: (data) => axios.post<any, AxiosResponse<ICreateCheckoutSession>>(`${envGtw.PAYGRW}/create-checkout-session`, data),
+    checkUserSubscriptionStatus: (data) => axios.post<any, AxiosResponse<IStatus>>(`${envGtw.PAYGRW}/check_user_subscription_status`, data),
     firebaseConfig: envGtw.firebaseConfig,
     credentials: envGtw.credentials
 }
