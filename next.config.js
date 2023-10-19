@@ -19,6 +19,14 @@ if(process.env.APP_ENV==='dev'){
 }}
 
 module.exports = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.pornpen.ai'
+      },
+    ],
+  },
   reactStrictMode: true,
   env: {
     APP_ENV:process.env.APP_ENV

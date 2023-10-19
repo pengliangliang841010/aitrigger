@@ -261,10 +261,13 @@ const Subcribe: NextPage = () => {
                             <Button loading={loading} onClick={() => handlePay(currentPriceId as IPriceId)} size='large' type="primary" block>Pay ${new BigNumber(currentPriceId?.price || 0).dividedBy(new BigNumber(100)).valueOf()}</Button>
                         </div></>}
 
-                    {!price || !price.length && <>
-                        <Skeleton />
+                    {!price || !price.length &&  <div className={SubcribeStyles.skeletonWrap}>
+                        <div className={SubcribeStyles.skeletonTitle}>
+                        <Skeleton.Button />
+                        </div>
+                        <Skeleton paragraph={{rows:3}} />
                         <Skeleton.Button className={SubcribeStyles.payBtn} block />
-                    </>
+                    </div>
                     }
                 </Modal>
 

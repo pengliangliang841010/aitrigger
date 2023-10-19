@@ -9,24 +9,29 @@ import { useIsMobile } from '../hooks/isMobile'
 import { setLocal } from '../utils/localStorage';
 import TagsListCurrent from '../components/TagsListCurrent';
 import { useForm } from 'antd/lib/form/Form';
-import http from '../utils/axios'
+import API from '../api.config'
+
 import useVip from '../hooks/useVip';
+import { polling, randomString } from '../utils';
+import { get } from 'lodash';
+import { messageCus } from '../helper';
+import { IOption, ITagItemCurrent } from '../interfaces/createCurrent';
 
 export const generatorDict = [
-    { value: 'women_crisp', label: 'Women: Detailed' },
-    { value: 'women_accurate', label: 'Women: Accurate' },
-    { value: 'women_real', label: 'Women: Realistic' },
-    { value: 'women', label: 'Women: Legacy' },
-    { value: 'women_hd', label: 'Women: HD (SDXL)' },
-    { value: 'women_intricate', label: 'Women: Intricate (SDXL)' },
-    { value: 'anime', label: 'Anime: Base' },
-    { value: 'anime_detailed', label: 'Anime: Detailed' },
-    { value: 'men', label: 'Men: Base' },
-    { value: 'men_detailed', label: 'Men: Base' },
-    { value: 'doggystyle', label: 'Doggystyle' },
-    { value: 'blowjob', label: 'Blowjob' },
-    { value: 'missionary', label: 'Missionary' },
-    { value: 'titfuck', label: 'Titfuck' },
+    { value: 'Women: Detailed', label: 'Women: Detailed' },
+    { value: 'Women: Accurate', label: 'Women: Accurate' },
+    { value: 'Women: Realistic', label: 'Women: Realistic' },
+    { value: 'Women: Legacy', label: 'Women: Legacy' },
+    { value: 'Women: HD (SDXL)', label: 'Women: HD (SDXL)' },
+    { value: 'Women: Intricate (SDXL)', label: 'Women: Intricate (SDXL)' },
+    { value: 'Anime: Base', label: 'Anime: Base' },
+    { value: 'Anime: Detailed', label: 'Anime: Detailed' },
+    { value: 'Men: Base', label: 'Men: Base' },
+    { value: 'Men: Detailed', label: 'Men: Base' },
+    { value: 'Doggystyle', label: 'Doggystyle' },
+    { value: 'Blowjob', label: 'Blowjob' },
+    { value: 'Missionary', label: 'Missionary' },
+    { value: 'Titfuck', label: 'Titfuck' },
 ]
 
 export const ratioDict = [
@@ -48,52 +53,82 @@ const Profile: NextPage = () => {
 
     const [creating, setCreating] = useState<boolean>(false)
 
-    const tagList = useRef()
+    const tagList = useRef<ITagItemCurrent>()
+
+    const jobId = useRef<string>()
 
     const [form] = useForm()
 
-    const handleCreate = () => {
+    const handleCreate = async () => {
         if (creating) {
             return
         }
         setCreating(true)
         setImgUrl(undefined)
 
-        const formData = form.getFieldsValue()
+        try {
 
-        const data = {
-            ...formData,
-            isPrivate: false,
-            prompt: (tagList.current as any)?.tagsMap,
-        }
+            const formData = form.getFieldsValue()
 
-        // http({
-        //     method: 'post',
-        //     url: '/api/create',
-        //     data: {data}
-        //   })
-        http.post('https://us-central1-dreampen-2273f.cloudfunctions.net/submitPromptAuth', { "data": { "prompt": { "BASE": [], "TAGS": [], "ENVIRONMENT": [], "STYLE": [], "VIEW": [], "CLOTHING": [], "NUMBER": [], "AGE": [], "FACE": [], "ACTION": [], "TITFUCK_VIEW": [], "TITFUCK_TAGS": [], "TITFUCK_POSE": [], "ANIME_ACTION": [], "ANIME_SUBJECT": [], "ANIME_TAGS": [], "ANIME_STYLE": [], "MEN_TAGS": [], "MEN_BASE": [], "NEGATIVE": [], "CHARACTER": [] }, "generator": "women_crisp", "isPrivate": false, "aspectRatio": "1:1" } }).then(function (response) {
-            console.log(response);
-        })
+            jobId.current = randomString()
 
-        setTimeout(() => {
-            // if (isMobile) {
-            const rollDom = document.getElementById('imgWrap')// 获取想要滚动的dom元素
-            rollDom && rollDom.scrollIntoView({ block: 'center' })
+            // api改版直接变动下
+            const tagsMap = tagList.current?.tagsMap || {}
+
+            const labels: string[] = [];
+
+            const tagsArr = Object.values(tagsMap)
+
+            if (tagsArr.length) {
+                (tagsArr as IOption[][]).forEach((item: IOption[]) => {
+                    item.forEach(one => {
+                        labels.push(one.label)
+                    })
+                })
+            }
+
+            const data = {
+                job_id: jobId.current,
+                ...formData,
+                labels,
+            }
+
+            // const data = {
+            //     job_id:jobId.current,
+            //     ...formData,
+            //     labels: (tagList.current as any)?.tagsMap,
             // }
-        }, 100)
 
-        setTimeout(() => {
-            setImgUrl('/banner1.webp')
+            const result = await API.submitPornGenJob(data)
+
+            if (get(result, 'data.status') !== "true") {
+                throw new Error('error')
+            }
+
+            const { start } = polling((stop) => API.checkPornGenJob({ job_id: jobId.current }).then(res => {
+                const url = get(res, 'data.img_url')
+                if (url) {
+                    setImgUrl(url)
+                    setCreating(false)
+                    stop()
+                }
+            }), () => {
+                setCreating(false)
+            })
+
+            await start()
+
+        } catch (err) {
+            messageCus.error('error,please try again!')
             setCreating(false)
-        }, 5000)
+        }
     }
 
     const saveToProfile = () => {
         if (!isVip) {
             return
         }
-     }
+    }
 
     const handleEditImg = () => {
         if (!isVip) {
@@ -102,7 +137,8 @@ const Profile: NextPage = () => {
         // 图片信息和tagsMap暂时存本地把
         setLocal('temp', {
             imgUrl,
-            tagsMap: (tagList.current as any)?.tagsMap
+            tagsMap: (tagList.current as any)?.tagsMap,
+            formData: form.getFieldsValue()
         })
         window.open('/createEdit')
     }
@@ -113,7 +149,8 @@ const Profile: NextPage = () => {
         }
         const a = document.createElement('a')
         a.href = imgUrl as string
-        a.download = 'default.png'
+        a.target = "_blank"
+        a.download = imgUrl as string
         a.dispatchEvent(new MouseEvent('click'))
     }
 
@@ -133,12 +170,12 @@ const Profile: NextPage = () => {
                         <div id="imgWrap" className={CreateStyles.imgWrap}>
                             {!!imgUrl && <Image src={imgUrl} layout="fill" objectFit='contain' ></Image>}
                             {(!imgUrl && !creating) && <div className={CreateStyles.placeHolder}> Choose tags to generate images here</div>}
-                            {(!imgUrl && creating) && <div className={CreateStyles.placeHolder}> generating ...<br/>
-                                {isVip?<span>You are VIP, we will accelerate the generation for you</span>:<><span>
+                            {(!imgUrl && creating) && <div className={CreateStyles.placeHolder}> generating ...<br />
+                                {isVip ? <span>You are VIP, we will accelerate the generation for you</span> : <><span>
                                     waiting too long?
                                 </span>
-                                <br />
-                                <Button onClick={() => window.open('/subcribe', '_blank')} type='primary' size='large' ghost> Go Premium </Button></>}
+                                    <br />
+                                    <Button onClick={() => window.open('/subcribe', '_blank')} type='primary' size='large' ghost> Go Premium </Button></>}
                                 <Loading></Loading></div>}
                         </div>
 
@@ -175,10 +212,10 @@ const Profile: NextPage = () => {
                     <div className={CreateStyles.block}>
                         <div>
                             <Form layout='vertical' form={form}>
-                                <Form.Item initialValue='women_crisp' label="Generator" name="generator">
+                                <Form.Item initialValue='Women: Detailed' label="Generator" name="model">
                                     <Select options={generatorDict} size='large' />
                                 </Form.Item>
-                                <Form.Item initialValue="1:1" label="Ratio" name="aspectRatio">
+                                <Form.Item initialValue="1:1" label="Ratio" name="ratio">
                                     <Select options={ratioDict} size="large" />
                                 </Form.Item>
                             </Form>

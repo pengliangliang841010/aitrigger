@@ -43,6 +43,8 @@ export const envGtw = mapEnv[process.env.APP_ENV || 'dev'] || mapEnv.dev
 export default {
     ['stripe-create-payment-intent']: () => axios(`${envGtw.STRIPEGTW}/create-payment-intent`),
     ['stripe-config']: () => axios(`${envGtw.STRIPEGTW}/config`),
+    submitPornGenJob:(data) => axios.post<any, AxiosResponse<{}>>(`${envGtw.PAYGRW}/submit_porngen_job`,data),
+    checkPornGenJob:(data) => axios.post<any, AxiosResponse<{}>>(`${envGtw.PAYGRW}/check_porngen_job`,data),
     getAllProducts: () => axios<any, AxiosResponse<IProducts>>(`${envGtw.PAYGRW}/get_all_products`),
     createCheckoutSession: (data) => axios.post<any, AxiosResponse<ICreateCheckoutSession>>(`${envGtw.PAYGRW}/create-checkout-session`, data),
     checkUserSubscriptionStatus: (data) => axios.post<any, AxiosResponse<IStatus>>(`${envGtw.PAYGRW}/check_user_subscription_status`, data),

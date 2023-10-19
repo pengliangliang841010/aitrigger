@@ -193,6 +193,18 @@
             }
         }
     }
+    .skeletonWrap{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        align-items: center;
+        .skeletonTitle{
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+    }
 }
 
 @media screen and (min-width: 541px) {
