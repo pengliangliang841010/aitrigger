@@ -94,7 +94,7 @@ const Login: NextPage = () => {
             <Input.Password placeholder="Password" />
         </Form.Item>
 
-        {currentTabKey==="regist"&&<Form.Item label="Please enter the password again" name="password2" rules={[{ required: true,message:'Enter' },({ getFieldValue }) => ({
+        {currentTabKey==="regist"&&<Form.Item label="Password again" name="password2" rules={[{ required: true,message:'Enter' },({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();

@@ -9,7 +9,7 @@ export default() => {
 
   const googleProvider = new GoogleAuthProvider();
 
-    const [loginInfo,setLoginInfo]=useState<User|'init'|'loginOut'>() //有3个状态，初始状态和登录和登出状态
+    const [loginInfo,setLoginInfo]=useState<User|undefined|'loginOut'>() //有3个状态，初始状态和登录和登出状态
 
     const loginOut=()=>{
       return signOut(auth)
