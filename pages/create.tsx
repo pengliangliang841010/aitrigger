@@ -162,7 +162,10 @@ const Profile: NextPage = () => {
         if (!isVip) {
             return
         }
-        downloadImg(imgUrl)
+        const imgDom=document.getElementById("imgDom")
+        if(imgDom){
+            downloadImg(get(imgDom,'src'))
+        }
     }
 
     return <div className={CreateStyles.wrap}>
@@ -179,7 +182,7 @@ const Profile: NextPage = () => {
                     <div className={clsx(CreateStyles.createImgWrap, { [CreateStyles.createImgWrapReady]: !!imgUrl || creating })}>
 
                         <div id="imgWrap" className={CreateStyles.imgWrap}>
-                            {!!imgUrl && <ImageNx src={imgUrl} layout="fill" objectFit='contain' ></ImageNx>}
+                            {!!imgUrl && <ImageNx id="imgDom" src={imgUrl} layout="fill" objectFit='contain' ></ImageNx>}
                             {(!imgUrl && !creating) && <div className={CreateStyles.placeHolder}> Choose tags to generate images here</div>}
                             {(!imgUrl && creating) && <div className={CreateStyles.placeHolder}> generating ...<br />
                                 {isVip ? <span>You are VIP, we will accelerate the generation for you</span> : <><span>

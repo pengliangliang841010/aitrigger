@@ -9,7 +9,7 @@ export function randomString(_e?: number) {
   return n
 }
 
-export function polling(callback, failBack, interval = 2000, maxCount = 10) {
+export function polling(callback, failBack, interval = 2000, maxCount = 20) {
   let timer
   let count = 0;
   let isStop = false
@@ -47,6 +47,9 @@ export function polling(callback, failBack, interval = 2000, maxCount = 10) {
 }
 
 export function downloadImg(imgSrc) {
+  if(!imgSrc){
+    return
+  }
   const xhr = new XMLHttpRequest()
   xhr.open('get', imgSrc, true)
   xhr.responseType = 'blob'
