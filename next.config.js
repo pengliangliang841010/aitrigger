@@ -25,6 +25,10 @@ module.exports = {
         protocol: 'https',
         hostname: 'cdn.pornpen.ai'
       },
+      {
+        protocol: 'https',
+        hostname: 'porngen-art.s3.amazonaws.com'
+      }
     ],
   },
   reactStrictMode: true,
