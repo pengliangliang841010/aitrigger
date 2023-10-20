@@ -10,11 +10,11 @@ export default () => {
 
     const { loginInfo } = useLogin()
 
-    const [isVip, setVip] = useState<boolean>(false)
+    const [isVip, setVip] = useState<boolean>(false) // 用来粗略控制vip状态
 
     const [price, setPrice] = useState<IPriceId[]>([])
 
-    const [loading,setLoading]=useState<boolean>(false)
+    const [loading,setLoading]=useState<boolean>() // 3个状态，true false undefined。当loading=false，此时vip状态是很精确的
 
     useEffect(() => {
         (async () => {
@@ -65,7 +65,11 @@ export default () => {
                         setLoading(false)
                     }
 
+                }else{
+                    setLoading(false)
                 }
+            }else{
+                setLoading(false)
             }
         })()
     }, [loginInfo])

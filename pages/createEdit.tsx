@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import CreateEditStyles from '../styles/CreateEdit.module.scss'
 import clsx from 'classnames';
 import { Button } from 'antd/lib';
-import Image from 'next/image'
+import ImageNx from 'next/image'
 import Loading from '../components/Loading'
 import { useIsMobile } from '../hooks/isMobile'
 import { getLocal } from '../utils/localStorage';
@@ -26,7 +26,7 @@ const Profile: NextPage = () => {
 
     const [creating, setCreating] = useState<boolean>(false)
 
-    const { isVip } = useVip()
+    const { isVip,loading } = useVip()
 
     const [tagsMap, setTagsMap] = useState<ITagItemCurrent>()
 
@@ -95,9 +95,16 @@ const Profile: NextPage = () => {
             const { start } = polling((stop) => API.checkPornGenJob({ job_id: jobId.current }).then(res => {
                 const url = get(res, 'data.img_url')
                 if (url) {
-                    setImgUrl2(url)
-                    commonBack()
-                    stop()
+                    const imageOne = new Image();
+                    imageOne.src = url
+                    imageOne.onload = function(){
+                        setImgUrl2(url)
+                        commonBack()
+                    }
+                    imageOne.onerror = function(){
+                        setCreating(false)
+                    }
+                    stop(true)
                 }
             }), () => {
                 commonBack()
@@ -127,7 +134,7 @@ const Profile: NextPage = () => {
                 <div className={clsx(CreateEditStyles.createImgWrap)}>
 
                     <div className={CreateEditStyles.imgWrap}>
-                        {!!imgUrl && <Image src={imgUrl} layout="fill" objectFit='contain' ></Image>}
+                        {!!imgUrl && <ImageNx src={imgUrl} layout="fill" objectFit='contain' ></ImageNx>}
                     </div>
 
                     {(!!imgUrl2 || creating) && <><div id='transform' className={CreateEditStyles.transForm}>
@@ -137,7 +144,7 @@ const Profile: NextPage = () => {
                     </div>
 
                         <div id='imgUrl2' className={clsx(`${CreateEditStyles.imgWrap} ${CreateEditStyles.mobileHide}`, { [CreateEditStyles.createImgWrapReady]: !!imgUrl2 || creating })}>
-                            {(!!imgUrl2) && <Image src={imgUrl2} layout="fill" objectFit='contain' ></Image>}
+                            {(!!imgUrl2) && <ImageNx src={imgUrl2} layout="fill" objectFit='contain' ></ImageNx>}
                             {(!imgUrl2 || creating) && <div className={CreateEditStyles.placeHolder}> generating ...
                                 {isVip ? <span>You are VIP, we will accelerate the generation for you</span> : <><span>
                                     waiting too long?
@@ -160,7 +167,7 @@ const Profile: NextPage = () => {
                     </div>}
                 </div>}
 
-                {editTag && <div className={CreateEditStyles.btnWrap}>
+                {editTag && loading===false&& <div className={CreateEditStyles.btnWrap}>
                     <Button onClick={handleCreate} loading={creating} block size='large' type="primary">Create</Button>
                 </div>}
 

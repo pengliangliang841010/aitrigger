@@ -24,7 +24,7 @@ const mapEnv = {
         credentials,
     },
     'prod': {
-        PAYGRW: "http://54.144.83.186:9996",
+        PAYGRW: "https://api.porngen.art",
         firebaseConfig: {
             apiKey: "AIzaSyDXjF21JliwZrdHnX6eLjDWlNBG6Jc6XHc",
             authDomain: "aitrigger-d4d70.firebaseapp.com",

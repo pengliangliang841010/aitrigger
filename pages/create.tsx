@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react'
 import CreateStyles from '../styles/Create.module.scss'
 import clsx from 'classnames';
 import { Button, Form, Select } from 'antd/lib';
-import Image from 'next/image'
+import ImageNx from 'next/image'
 import Loading from '../components/Loading'
 import { useIsMobile } from '../hooks/isMobile'
 import { setLocal } from '../utils/localStorage';
@@ -12,7 +12,7 @@ import { useForm } from 'antd/lib/form/Form';
 import API from '../api.config'
 
 import useVip from '../hooks/useVip';
-import { polling, randomString } from '../utils';
+import { downloadImg, polling, randomString } from '../utils';
 import { get } from 'lodash';
 import { messageCus } from '../helper';
 import { IOption, ITagItemCurrent } from '../interfaces/createCurrent';
@@ -47,7 +47,7 @@ const Profile: NextPage = () => {
 
     const isMobile = useIsMobile()
 
-    const { isVip } = useVip()
+    const { isVip,loading } = useVip()
 
     const [imgUrl, setImgUrl] = useState<string>()
 
@@ -65,6 +65,13 @@ const Profile: NextPage = () => {
         }
         setCreating(true)
         setImgUrl(undefined)
+
+        setTimeout(() => {
+            // if (isMobile) {
+            const rollDom = document.getElementById('imgWrap')// 获取想要滚动的dom元素
+            rollDom && rollDom.scrollIntoView({ block: 'center' })
+            // }
+        }, 100)
 
         try {
 
@@ -102,15 +109,23 @@ const Profile: NextPage = () => {
             const result = await API.submitPornGenJob(data)
 
             if (get(result, 'data.status') !== "true") {
-                throw new Error('error')
+                throw new Error('error:submitPornGenJob')
             }
 
             const { start } = polling((stop) => API.checkPornGenJob({ job_id: jobId.current }).then(res => {
                 const url = get(res, 'data.img_url')
                 if (url) {
-                    setImgUrl(url)
-                    setCreating(false)
-                    stop()
+                    const imageOne = new Image();
+                    imageOne.src = url
+                    imageOne.onload = function(){
+                        setImgUrl(url)
+                        setCreating(false)
+                    }
+                    imageOne.onerror = function(){
+                        setCreating(false)
+                        throw new Error('error:loadImage')
+                    }
+                    stop(true)
                 }
             }), () => {
                 setCreating(false)
@@ -147,11 +162,7 @@ const Profile: NextPage = () => {
         if (!isVip) {
             return
         }
-        const a = document.createElement('a')
-        a.href = imgUrl as string
-        a.target = "_blank"
-        a.download = imgUrl as string
-        a.dispatchEvent(new MouseEvent('click'))
+        downloadImg(imgUrl)
     }
 
     return <div className={CreateStyles.wrap}>
@@ -168,7 +179,7 @@ const Profile: NextPage = () => {
                     <div className={clsx(CreateStyles.createImgWrap, { [CreateStyles.createImgWrapReady]: !!imgUrl || creating })}>
 
                         <div id="imgWrap" className={CreateStyles.imgWrap}>
-                            {!!imgUrl && <Image src={imgUrl} layout="fill" objectFit='contain' ></Image>}
+                            {!!imgUrl && <ImageNx src={imgUrl} layout="fill" objectFit='contain' ></ImageNx>}
                             {(!imgUrl && !creating) && <div className={CreateStyles.placeHolder}> Choose tags to generate images here</div>}
                             {(!imgUrl && creating) && <div className={CreateStyles.placeHolder}> generating ...<br />
                                 {isVip ? <span>You are VIP, we will accelerate the generation for you</span> : <><span>
@@ -226,9 +237,9 @@ const Profile: NextPage = () => {
                     </div>
                 </div>
 
-                <div className={CreateStyles.btnWrap}>
+                {loading===false&&<div className={CreateStyles.btnWrap}>
                     <Button onClick={handleCreate} loading={creating} block size='large' type="primary">Create</Button>
-                </div>
+                </div>}
 
             </div>
         </div>
