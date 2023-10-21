@@ -556,7 +556,7 @@ export default React.forwardRef((props: IProps, ref) => {
     const [tagsMap, setTagsMap] = useState<ITagItemCurrent>({});
 
     useImperativeHandle(ref, () => ({
-         tagsMap
+         tagsMap:cloneDeep(tagsMap)
     }));
 
     const renderTags = (tagsMap: ITagItemCurrent): any => {
@@ -588,7 +588,7 @@ export default React.forwardRef((props: IProps, ref) => {
 
     useEffect(() => {
         if (formData) {
-            setTagsMap(formData)
+            setTagsMap(cloneDeep(formData))
         }
     }, [formData])
 

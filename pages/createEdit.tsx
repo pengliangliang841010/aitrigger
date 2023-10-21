@@ -161,11 +161,11 @@ const Profile: NextPage = () => {
                 </div>}
 
 
-                {editTag && <div className={CreateEditStyles.block}>
+                 <div className={clsx(CreateEditStyles.block,{[CreateEditStyles.hide]:!editTag})}>
                     <TagsListCurrent ref={tagList} formData={tagsMap} />
                     {creating && <div className={CreateEditStyles.blockMask}>
                     </div>}
-                </div>}
+                </div>
 
                 {editTag && loading===false&& <div className={CreateEditStyles.btnWrap}>
                     <Button onClick={handleCreate} loading={creating} block size='large' type="primary">Create</Button>

@@ -7,6 +7,7 @@ import useRem from '../hooks/useRem'
 import { ConfigProvider } from 'antd/lib';
 import React, { useEffect } from 'react'
 import theme from '../antdTheme'
+import Head from 'next/head'
 
 // import {getUser} from '../DynamoDB/userApi'
 
@@ -19,11 +20,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ConfigProvider
-        theme={theme}
-      >
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+      theme={theme}
+    >
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </ConfigProvider>
 
   )
