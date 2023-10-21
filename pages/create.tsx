@@ -224,7 +224,7 @@ const Profile: NextPage = () => {
                     </div>
 
                     <div className={CreateStyles.block}>
-                        <div>
+                        <div className={CreateStyles.blockForm}>
                             <Form layout='vertical' form={form}>
                                 <Form.Item initialValue='Women: Detailed' label="Generator" name="model">
                                     <Select options={generatorDict} size='large' />

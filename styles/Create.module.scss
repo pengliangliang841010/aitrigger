@@ -44,6 +44,10 @@
         .block {
             position: relative;
 
+            .blockForm{
+                font-size: 16px;
+            }
+
             .blockMask {
                 position: absolute;
                 top: 0;
@@ -61,6 +65,7 @@
             }
 
             :global(.ant-select-selection-item) {
+                font-size: 16px;
                 color: $mainColor
             }
 
