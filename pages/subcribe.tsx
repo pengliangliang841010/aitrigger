@@ -58,6 +58,7 @@ const Subcribe: NextPage = () => {
             setTimeout(() => {
                 router.push('/login')
             }, 1000)
+            return
         }
 
         if (loading) {
