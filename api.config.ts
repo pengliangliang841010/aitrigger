@@ -11,7 +11,7 @@ const credentials = {
 const mapEnv = {
     'dev': {
         STRIPEGTW: ' https://e2jf2jwdzc.us-east-1.awsapprunner.com',
-        PAYGRW: " https://e2jf2jwdzc.us-east-1.awsapprunner.com",
+        PAYGRW: "https://api.porngen.art",
         firebaseConfig: {
             apiKey: "AIzaSyDXjF21JliwZrdHnX6eLjDWlNBG6Jc6XHc",
             authDomain: "aitrigger-d4d70.firebaseapp.com",
@@ -24,7 +24,7 @@ const mapEnv = {
         credentials,
     },
     'prod': {
-        PAYGRW: " https://e2jf2jwdzc.us-east-1.awsapprunner.com",
+        PAYGRW: "https://api.porngen.art",
         firebaseConfig: {
             apiKey: "AIzaSyDXjF21JliwZrdHnX6eLjDWlNBG6Jc6XHc",
             authDomain: "aitrigger-d4d70.firebaseapp.com",
