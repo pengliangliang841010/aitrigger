@@ -3,6 +3,8 @@
   "rules":{
     "@typescript-eslint/ban-ts-comment":1,
     "react/display-name":1,
-    "@typescript-eslint/no-empty-function":1
+    "@typescript-eslint/no-empty-function":1,
+    "react/no-unescaped-entities":1,
+    "react/jsx-no-target-blank":1
   }
 }
