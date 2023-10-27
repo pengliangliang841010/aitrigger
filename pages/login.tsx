@@ -72,10 +72,10 @@ const Login: NextPage = () => {
         const res=await singnWithGoogle().then((res)=>{
             return (res as UserCredential).user
         })
-        //2.成功后页面跳转，跳转到个人资料页面
+        //2.成功后页面跳转，跳转到create页面
         const {uid,email}=res;
         messageCus.success('sign in success')
-        router.push('/profile')
+        router.push('/create')
         http({
             method: 'put',
             url: '/api/user',
@@ -94,7 +94,7 @@ const Login: NextPage = () => {
             <Input.Password placeholder="Password" />
         </Form.Item>
 
-        {currentTabKey==="regist"&&<Form.Item label="Password again" name="password2" rules={[{ required: true,message:'Enter' },({ getFieldValue }) => ({
+        {/* {currentTabKey==="regist"&&<Form.Item label="Password again" name="password2" rules={[{ required: true,message:'Enter' },({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
@@ -103,7 +103,7 @@ const Login: NextPage = () => {
             },
           }),]}>
             <Input.Password placeholder="Password" />
-        </Form.Item>}
+        </Form.Item>} */}
 
         <div className={LoginStyles.btnWrapFirst}><Button onClick={handleSubmit} loading={loading} block size='large' type='primary'>{currentTabKey === "login" ? "Sign in" : "Sign up"}</Button></div>
         {currentTabKey === "login" && <div className={LoginStyles.reset}><Link href="/findPassword">Reset password</Link></div>}

@@ -46,7 +46,9 @@ export default {
     submitPornGenJob:(data) => axios.post<any, AxiosResponse<{}>>(`${envGtw.PAYGRW}/submit_porngen_job`,data),
     checkPornGenJob:(data) => axios.post<any, AxiosResponse<{}>>(`${envGtw.PAYGRW}/check_porngen_job`,data),
     getAllProducts: () => axios<any, AxiosResponse<IProducts>>(`${envGtw.PAYGRW}/get_all_products`),
+    randomFeedImageList: (num:number) => axios<any, AxiosResponse<{images:string[]}>>(`${envGtw.PAYGRW}/random_feed_image_list?img_num=${num}`),
     createCheckoutSession: (data) => axios.post<any, AxiosResponse<ICreateCheckoutSession>>(`${envGtw.PAYGRW}/create-checkout-session`, data),
+    createPortalSession: (data) => axios.post<any, AxiosResponse<ICreateCheckoutSession>>(`${envGtw.PAYGRW}/create-portal-session`, data),
     checkUserSubscriptionStatus: (data) => axios.post<any, AxiosResponse<IStatus>>(`${envGtw.PAYGRW}/check_user_subscription_status`, data),
     firebaseConfig: envGtw.firebaseConfig,
     credentials: envGtw.credentials

@@ -1,0 +1,44 @@
+.wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    height: calc(100 * var(--vh));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(36 45 64);
+    z-index: 10;
+
+    .inner {
+        text-align: center;
+        color: #fff;
+        width: 80%;
+    }
+
+    .title {
+        font-size: 18px;
+        font-weight: 800;
+
+        span {
+            color: $mainColor;
+        }
+    }
+
+    .desc {
+        margin-top: 20px;
+        font-size: 14px;
+        line-height: 20px;
+
+        a {
+            color: $mainColor;
+        }
+    }
+
+    .btnWrap {
+        margin-top: 20px;
+    }
+
+}

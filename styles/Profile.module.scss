@@ -1,45 +1,107 @@
-.wrap{
-    .mt10{
+.wrap {
+    .mt10 {
         margin-top: 10px;
     }
+
     .width1280 {
         margin: 0 auto;
         width: auto !important;
         max-width: 1280px !important;
-        .innerWrap{
-            .imgWrap{
+
+        .innerWrap {
+            .imgWrap {
                 max-height: 450px;
             }
         }
     }
-    .innerWrap{
-        margin:0 16px;
-        padding-bottom: 150px;
-        .imgWrap{
-            width:100%;
+
+    .innerWrap {
+        margin: 0 16px;
+        height: calc(100 * var(--vh) - 72px - 40px);
+        padding-top: 60px;
+
+        .optWrap {
+            .sketchWrap {
+                padding: 15px;
+            }
+
+            .optItemTitle {
+                padding: 25px;
+                font-size: 24px;
+
+                span {
+                    color: $mainColor
+                }
+
+                border-bottom: 1px solid #a1a1aa;
+            }
+
+            background-color: rgb(36 45 64);
+            width:40vw;
+            margin:0 auto;
+            border-radius:4px;
+
+            .optItem {
+                text-align: right;
+                padding: 15px;
+                font-size: 14px;
+                cursor: pointer;
+                border-bottom: 1px solid #a1a1aa;
+
+                .itemStrong {
+                    color: $mainColor
+                }
+            }
+
+            .optItem:last-child {
+                border: none;
+            }
+        }
+
+        .imgWrap {
+            width: 100%;
             height: 450px;
             display: flex;
             justify-content: center;
             align-items: center;
-            position:relative;
+            position: relative;
             background-color: rgb(36, 45, 64);
         }
-        .info{
-            margin-top: 40px;
+
+        .info {
             text-align: center;
             font-size: 24px;
-            color:#fff;
-            >span{
-                color:$mainColor;
+            color: #fff;
+
+            >span {
+                color: $mainColor;
                 font-weight: 700;
             }
-            .toSubcribeBtn{
-                color:$mainColor
+
+            .toSubcribeBtn {
+                color: $mainColor
             }
-            .vipInfo{
-                margin-top: 30px;
+
+            .vipInfo {
                 font-size: 16px;
             }
         }
     }
+}
+
+@media screen and (max-width: 540px) {
+    .formWrap {
+        .card {
+            width: 50vw;
+        }
+    }
+
+    .innerWrap {
+        height: calc(100 * var(--vh) - 72px - 120px)!important;
+
+        .optWrap {
+            width: 80vw !important;
+        }
+    }
+
 }

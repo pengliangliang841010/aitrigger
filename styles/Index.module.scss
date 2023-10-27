@@ -1,10 +1,13 @@
 .container {
     width:100vw;
     position:relative;
-    height:calc(100 * var(--vh) - 72px);
+
+    .mt30{
+        margin-top: 30px;
+    }
 
     :global(.swiper){
-        height:calc(100 * var(--vh) - 322px);
+        height:calc(100 * var(--vh) - 120px);
         z-index:3;
         background-color: transparent;
         *{
@@ -17,7 +20,7 @@
         }
     }
     .containerMain{
-        height:calc(100 * var(--vh) - 274px);
+        height:calc(100 * var(--vh) - 72px);
     }
  .swiperWrap{
     margin:0 16px;
@@ -54,6 +57,18 @@
     bottom: 24px;
     z-index: 3;
     height: 200px
+ }
+ .gallery{
+    width:100vw;
+    max-width: 1280PX;
+    margin:0 auto;
+    padding:0 10px;
+    :global(.swiper){
+        height:200px;
+    }
+    :global(.swiper-wrapper){
+        transition-timing-function:linear;
+    }
  }
  
 }
@@ -117,6 +132,23 @@
   .container{
     display: flex;
     flex-direction: column;
+    .description{
+        padding:0 16px;
+        display: flex;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        align-items: center;
+        justify-content: space-between;
+        color:#fff;
+        font-size: 20px;
+        width:100%;
+        >span{
+            
+                display: flex;
+                align-items: center;
+                gap: 8px;
+        }
+    }
     .width1280{
         margin:0 auto;
         width: auto!important;
@@ -126,11 +158,11 @@
         display:flex;
         align-items: center;
         flex-direction: row-reverse;
-        
+        width:100%;        
     }
     
     .infoWrap{
-        width:66.6%;
+        width:59.9%;
         display: flex;
         flex-direction: column-reverse;
         height:auto;
@@ -154,22 +186,6 @@
                 padding-top: 24px;
                 padding-bottom: 32px;
             }
-        }
-    }
-    .description{
-        padding:0 16px;
-        display: flex;
-        margin-top: 20px;
-        align-items: center;
-        justify-content: space-between;
-        color:#fff;
-        font-size: 20px;
-        width:100%;
-        >span{
-            
-                display: flex;
-                align-items: center;
-                gap: 8px;
         }
     }
     .createBtnWrap{
@@ -196,6 +212,18 @@
     }
   }
   .containerMain{
-    width:33.3%;
+    width:39.9%;
   }
+}
+
+@media screen and (max-width: 540px){
+    .container{
+
+        :global(.swiper){
+            height:calc(100 * var(--vh) - 322px);
+        }
+        .containerMain{
+            height:calc(100 * var(--vh) - 274px);
+        }
+    }
 }

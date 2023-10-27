@@ -1,6 +1,6 @@
 .formWrap {
     width: 100vw;
-    height: calc(100 * var(--vh) - 72px);
+    height: calc(100 * var(--vh) - 72px - 40px);
 
     .width1280 {
         margin: 0 auto;
@@ -10,10 +10,11 @@
         .formInner {
             color: #fff;
             font-size: 16px;
-            height: calc(100 * var(--vh) - 72px);
+            height: calc(100 * var(--vh) - 72px - 40px);
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow-y: auto;
         }
 
         .reset{
@@ -93,4 +94,14 @@
             width:50vw;
         }
     }
+}
+
+@media screen and (max-width: 540px) {
+    .formWrap {
+        height: calc(100 * var(--vh) - 72px - 120px)!important;
+        .formInner{
+            height: calc(100 * var(--vh) - 72px - 120px)!important;
+        }
+    }
+    
 }

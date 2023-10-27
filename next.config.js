@@ -28,6 +28,10 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'api.porngen.art'
+      },
+      {
+        protocol: 'https',
+        hostname: 'porngen-art.s3.amazonaws.com'
       }
     ],
   },

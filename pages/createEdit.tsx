@@ -26,7 +26,7 @@ const Profile: NextPage = () => {
 
     const [creating, setCreating] = useState<boolean>(false)
 
-    const { isVip,loading } = useVip()
+    const { isVip, loading } = useVip()
 
     const [tagsMap, setTagsMap] = useState<ITagItemCurrent>()
 
@@ -97,11 +97,11 @@ const Profile: NextPage = () => {
                 if (url) {
                     const imageOne = new Image();
                     imageOne.src = url
-                    imageOne.onload = function(){
+                    imageOne.onload = function () {
                         setImgUrl2(url)
                         commonBack()
                     }
-                    imageOne.onerror = function(){
+                    imageOne.onerror = function () {
                         setCreating(false)
                     }
                     stop(true)
@@ -145,13 +145,14 @@ const Profile: NextPage = () => {
 
                         <div id='imgUrl2' className={clsx(`${CreateEditStyles.imgWrap} ${CreateEditStyles.mobileHide}`, { [CreateEditStyles.createImgWrapReady]: !!imgUrl2 || creating })}>
                             {(!!imgUrl2) && <ImageNx src={imgUrl2} layout="fill" objectFit='contain' ></ImageNx>}
-                            {(!imgUrl2 || creating) && <div className={CreateEditStyles.placeHolder}> generating ...
-                                {isVip ? <span>You are VIP, we will accelerate the generation for you</span> : <><span>
+                            {(!imgUrl2 && creating) && <div className={clsx(CreateEditStyles.placeHolder, { [CreateEditStyles.placeHolderVip]: isVip })}> Generating <br />
+                                {isVip ? <span className={CreateEditStyles.vipCreateTips}>Less than 30s<span className={CreateEditStyles.dot}>...</span><br />Fast Pass + Higher Quality</span> : <><span>
+                                    More than 1mins<span className={CreateEditStyles.dot}>...</span><br />
                                     waiting too long?
                                 </span>
                                     <br />
                                     <Button onClick={() => window.open('/subcribe', '_blank')} type='primary' size='large' ghost> Go Premium </Button></>}
-                                <Loading></Loading></div>}
+                            </div>}
                         </div></>}
 
                 </div>
@@ -161,13 +162,13 @@ const Profile: NextPage = () => {
                 </div>}
 
 
-                 <div className={clsx(CreateEditStyles.block,{[CreateEditStyles.hide]:!editTag})}>
+                <div className={clsx(CreateEditStyles.block, { [CreateEditStyles.hide]: !editTag })}>
                     <TagsListCurrent ref={tagList} formData={tagsMap} />
                     {creating && <div className={CreateEditStyles.blockMask}>
                     </div>}
                 </div>
 
-                {editTag && loading===false&& <div className={CreateEditStyles.btnWrap}>
+                {editTag && loading === false && <div className={CreateEditStyles.btnWrap}>
                     <Button onClick={handleCreate} loading={creating} block size='large' type="primary">Create</Button>
                 </div>}
 

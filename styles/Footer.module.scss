@@ -1,0 +1,42 @@
+.wrap {
+    width: 100vw;
+    background-color: #000;
+    .width1280 {
+        margin: 0 auto;
+        width: auto !important;
+        max-width: 1280px !important;
+    }
+        .inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color:rgb(150, 150, 150)
+        }
+        .left,.middle,.right{
+            height:40px;
+            line-height: 40px;
+            text-align: center;
+        }
+        .middle{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap:20px;
+            span{
+                line-height: 40px;
+                display: flex;
+                height:40px;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+    @media screen and (max-width: 540px) {
+        .inner{
+            flex-wrap: wrap;
+        }
+        .inner>div{
+            width:100%
+        }
+    }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Image from 'next/image'
 import Head from 'next/head'
@@ -8,15 +8,44 @@ import { Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/autoplay'
-import { Button } from 'antd/lib';
 import Link from 'next/link';
 import useLogin from '../hooks/useLogin';
+import { useIsMobile } from '../hooks/isMobile'
+import API from '../api.config'
+import { useRouter } from 'next/router'
+import preload from '../hooks/preload' 
 
 const Home: NextPage = () => {
 
-    const {loginInfo}=useLogin()
+    const { loginInfo } = useLogin()
 
-    const isLogin=typeof(loginInfo)==="object"
+    const router=useRouter()
+
+    const isLogin = typeof (loginInfo) === "object"
+
+    const isMobile = useIsMobile()
+
+    const [imgList, setImgList] = useState<string[]>()
+
+    const [imgList2, setImgList2] = useState<string[]>()
+
+    useEffect(() => {
+        (async () => {
+            const { data: { images } } = await API.randomFeedImageList(10)
+            setImgList(images)
+
+        })()
+    }, [])
+
+    useEffect(() => {
+        (async () => {
+            const { data: { images } } = await API.randomFeedImageList(10)
+            setImgList2(images)
+
+        })()
+    }, [])
+
+    preload()
 
     return (
         <div className={indexStyles.container}>
@@ -25,7 +54,7 @@ const Home: NextPage = () => {
 
                 <div className={indexStyles.containerMain}>
                     <Head>
-                        <title>aitrigger</title>
+                        <title>pornGen</title>
                         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
                     </Head>
 
@@ -55,8 +84,8 @@ const Home: NextPage = () => {
                 <div className={indexStyles.infoWrap}>
 
                     <div className={indexStyles.infoWrapBtn}>
-                        <Link href="/subcribe"><div>Go Premium</div></Link>
-                        <Link href={isLogin?"/create":"/login"}><div className={indexStyles.infoBtnActive}>Try Free</div></Link>
+                        <Link prefetch href="/subcribe"><div>Go Premium</div></Link>
+                        <Link prefetch href={isLogin ? "/create" : "/login"}><div className={indexStyles.infoBtnActive}>Try Free</div></Link>
                     </div>
 
                     <div className={indexStyles.infoContent}>
@@ -67,7 +96,60 @@ const Home: NextPage = () => {
 
                 </div>
 
-            </div>
+                </div>
+
+            {/* 首屏到底结束 */}
+
+            {imgList&&!!imgList.length&&<div className={indexStyles.width1280}>
+                <div className={indexStyles.gallery}>
+                    <Swiper
+                        slidesPerView={isMobile ? 2 : 6}
+                        loop={true}
+                        loopedSlides={4}
+                        autoplay={{
+                            delay: 0,
+                            disableOnInteraction:false
+                        }}
+                        speed={3000}
+                        spaceBetween={30}
+                        modules={[Autoplay]}
+                    >
+                        {imgList?.map(item => {
+                            return <SwiperSlide>
+                                <Image placeholder='blur' blurDataURL="/default.webp" loading='lazy' layout="fill" objectFit='contain' src={item} alt="load failed"></Image>
+                            </SwiperSlide>
+                        })}
+                    </Swiper>
+                </div>
+            </div>}
+
+            <div className={indexStyles.mt30} />
+
+            {imgList2&&!!imgList2.length&&<div className={indexStyles.width1280}>
+                <div className={indexStyles.gallery}>
+                    <Swiper
+                        slidesPerView={isMobile ? 2 : 6}
+                        loop={true}
+                        loopedSlides={4}
+                        dir="rtl"
+                        autoplay={{
+                            delay: 0,
+                            disableOnInteraction:false
+                        }}
+                        speed={3000}
+                        spaceBetween={30}
+                        modules={[Autoplay]}
+                    >
+                        {imgList2?.map(item => {
+                            return <SwiperSlide>
+                                <Image placeholder='blur' blurDataURL="/default.webp" loading='lazy' layout="fill" objectFit='contain' src={item} alt="load failed"></Image>
+                            </SwiperSlide>
+                        })}
+                    </Swiper>
+                </div>
+            </div>}
+
+
             <div className={indexStyles.descriptionWrap}>
                 <div className={indexStyles.width1280}>
                     <div className={indexStyles.description}>
@@ -76,13 +158,6 @@ const Home: NextPage = () => {
                         <span><span><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zM4 6h16v2H4V6zm0 12v-6h16.001l.001 6H4z"></path><path d="M6 14h6v2H6z"></path></svg></span>Safe & secure transactions</span>
                         <span><span><svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="m6.516 14.323-1.49 6.452a.998.998 0 0 0 1.529 1.057L12 18.202l5.445 3.63a1.001 1.001 0 0 0 1.517-1.106l-1.829-6.4 4.536-4.082a1 1 0 0 0-.59-1.74l-5.701-.454-2.467-5.461a.998.998 0 0 0-1.822 0L8.622 8.05l-5.701.453a1 1 0 0 0-.619 1.713l4.214 4.107zm2.853-4.326a.998.998 0 0 0 .832-.586L12 5.43l1.799 3.981a.998.998 0 0 0 .832.586l3.972.315-3.271 2.944c-.284.256-.397.65-.293 1.018l1.253 4.385-3.736-2.491a.995.995 0 0 0-1.109 0l-3.904 2.603 1.05-4.546a1 1 0 0 0-.276-.94l-3.038-2.962 4.09-.326z"></path></svg></span>Try Free Today</span>
                     </div>
-                    <div className={indexStyles.createBtnWrap}>
-                        <div className={indexStyles.createBtn}>
-                            <Link href="/create">
-                                <Button block type="primary" size="large">Create</Button>
-                            </Link>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -90,5 +165,4 @@ const Home: NextPage = () => {
 }
 
 export default Home
-
 

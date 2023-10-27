@@ -10,24 +10,30 @@ import { setLocal } from '../utils/localStorage';
 import TagsListCurrent from '../components/TagsListCurrent';
 import { useForm } from 'antd/lib/form/Form';
 import API from '../api.config'
-
+import { useRouter } from 'next/router'
 import useVip from '../hooks/useVip';
 import { downloadImg, polling, randomString } from '../utils';
-import { get } from 'lodash';
+import { cloneDeep, get } from 'lodash';
 import { messageCus } from '../helper';
 import { IOption, ITagItemCurrent } from '../interfaces/createCurrent';
 
-export const generatorDict = [
-    { value: 'Women: Detailed', label: 'Women: Detailed' },
+const freeMode = ['Women: Detailed', 'Women: Realistic', 'Anime: Base', 'Men: Base']
+
+const clockIcon = <span className={CreateStyles.clock}>
+    <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4019" width="24" height="24"><path d="M753.845117 371.674021l-17.46272 0 0-83.669608c0-59.275012-22.62837-115.203812-63.715137-157.482731-42.170448-43.394323-99.369172-67.291592-161.058163-67.291592-126.040624 0-224.772276 98.731652-224.772276 224.7733l0 83.669608-16.680914 0c-62.788022 0-113.688295 50.900274-113.688295 113.688295L156.467611 842.961784c0 62.788022 50.900274 113.688295 113.688295 113.688295l483.690234 0c62.788022 0 113.688295-50.900274 113.688295-113.688295L867.534436 485.362316C867.532389 422.574295 816.633139 371.674021 753.845117 371.674021zM328.176344 288.005436c0-102.858646 80.573083-183.432753 183.431729-183.432753 50.423413 0 97.093339 19.447934 131.410935 54.762231 33.547047 34.519188 52.021817 80.214926 52.021817 128.670521l0 83.669608L328.176344 371.675044 328.176344 288.005436zM826.191842 842.961784c0 39.956014-32.390711 72.346725-72.346725 72.346725L270.154883 915.308509c-39.956014 0-72.346725-32.390711-72.346725-72.346725L197.808158 485.362316c0-39.956014 32.390711-72.346725 72.346725-72.346725l483.690234 0c39.956014 0 72.346725 32.390711 72.346725 72.346725L826.191842 842.961784z" fill="#ec567c" p-id="4020"></path><path d="M509.932921 580.446905c-11.416004 0-20.670785 9.254781-20.670785 20.670785l0 109.554138c0 11.414981 9.254781 20.670785 20.670785 20.670785 11.416004 0 20.670785-9.254781 20.670785-20.670785L530.603707 601.116667C530.602683 589.701686 521.348925 580.446905 509.932921 580.446905z" fill="#ec567c" p-id="4021"></path></svg>
+</span>
+
+export const generatorDict: { [x: string]: any } = [
+    { value: 'Women: Detailed', label: 'Women: Detailed' },//
     { value: 'Women: Accurate', label: 'Women: Accurate' },
-    { value: 'Women: Realistic', label: 'Women: Realistic' },
+    { value: 'Women: Realistic', label: 'Women: Realistic' },//
     { value: 'Women: Legacy', label: 'Women: Legacy' },
     { value: 'Women: HD (SDXL)', label: 'Women: HD (SDXL)' },
     { value: 'Women: Intricate (SDXL)', label: 'Women: Intricate (SDXL)' },
-    { value: 'Anime: Base', label: 'Anime: Base' },
+    { value: 'Anime: Base', label: 'Anime: Base' },//
     { value: 'Anime: Detailed', label: 'Anime: Detailed' },
-    { value: 'Men: Base', label: 'Men: Base' },
-    { value: 'Men: Detailed', label: 'Men: Base' },
+    { value: 'Men: Base', label: 'Men: Base' },//
+    { value: 'Men: Detailed', label: 'Men: Detailed' },
     { value: 'Doggystyle', label: 'Doggystyle' },
     { value: 'Blowjob', label: 'Blowjob' },
     { value: 'Missionary', label: 'Missionary' },
@@ -47,7 +53,7 @@ const Profile: NextPage = () => {
 
     const isMobile = useIsMobile()
 
-    const { isVip,loading } = useVip()
+    const { isVip, loading } = useVip()
 
     const [imgUrl, setImgUrl] = useState<string>()
 
@@ -58,6 +64,14 @@ const Profile: NextPage = () => {
     const jobId = useRef<string>()
 
     const [form] = useForm()
+
+    const router = useRouter()
+
+    const addClock = (str: string) => {
+        return <div onClick={() => {
+            router.push('/subcribe')
+        }} className={CreateStyles.generatorItem}>{str}{clockIcon}</div>
+    }
 
     const handleCreate = async () => {
         if (creating) {
@@ -117,11 +131,11 @@ const Profile: NextPage = () => {
                 if (url) {
                     const imageOne = new Image();
                     imageOne.src = url
-                    imageOne.onload = function(){
+                    imageOne.onload = function () {
                         setImgUrl(url)
                         setCreating(false)
                     }
-                    imageOne.onerror = function(){
+                    imageOne.onerror = function () {
                         setCreating(false)
                         throw new Error('error:loadImage')
                     }
@@ -162,9 +176,9 @@ const Profile: NextPage = () => {
         if (!isVip) {
             return
         }
-        const imgDom=document.getElementById("imgDom")
-        if(imgDom){
-            downloadImg(get(imgDom,'src'))
+        const imgDom = document.getElementById("imgDom")
+        if (imgDom) {
+            downloadImg(get(imgDom, 'src'))
         }
     }
 
@@ -174,7 +188,7 @@ const Profile: NextPage = () => {
 
                 <div className={CreateStyles.info} id="info">
                     <h1>Generate your favorite</h1>
-                    <p>To generate an image, please select your label and click Generate ↓</p>
+                    <p>Choose some tags and click 'generate'</p>
                 </div>
 
                 <div className={CreateStyles.pcSuit}>
@@ -184,13 +198,14 @@ const Profile: NextPage = () => {
                         <div id="imgWrap" className={CreateStyles.imgWrap}>
                             {!!imgUrl && <ImageNx id="imgDom" src={imgUrl} layout="fill" objectFit='contain' ></ImageNx>}
                             {(!imgUrl && !creating) && <div className={CreateStyles.placeHolder}> Choose tags to generate images here</div>}
-                            {(!imgUrl && creating) && <div className={CreateStyles.placeHolder}> generating ...<br />
-                                {isVip ? <span>You are VIP, we will accelerate the generation for you</span> : <><span>
+                            {(!imgUrl && creating) && <div className={clsx(CreateStyles.placeHolder, { [CreateStyles.placeHolderVip]: isVip })}> Generating <br />
+                                {isVip ? <span className={CreateStyles.vipCreateTips}>Less than 30s<span className={CreateStyles.dot}>...</span><br />Fast Pass + Higher Quality</span> : <><span>
+                                    More than 1mins<span className={CreateStyles.dot}>...</span><br />
                                     waiting too long?
                                 </span>
                                     <br />
                                     <Button onClick={() => window.open('/subcribe', '_blank')} type='primary' size='large' ghost> Go Premium </Button></>}
-                                <Loading></Loading></div>}
+                            </div>}
                         </div>
 
                         {!!imgUrl && <div className={CreateStyles.editWrap}>
@@ -227,11 +242,17 @@ const Profile: NextPage = () => {
                         <div className={CreateStyles.blockForm}>
                             <Form layout='vertical' form={form}>
                                 <Form.Item initialValue='Women: Detailed' label="Generator" name="model">
-                                    <Select options={generatorDict} size='large' />
+                                    <Select popupClassName="modelDrop" options={cloneDeep(generatorDict).map((item) => {
+                                        if (!freeMode.includes(item.value) && !isVip) {
+                                            item.label = addClock(item.label)
+                                            item.disabled = true
+                                        }
+                                        return item
+                                    })} size='large' />
                                 </Form.Item>
-                                <Form.Item initialValue="1:1" label="Ratio" name="ratio">
+                                {/* <Form.Item initialValue="1:1" label="Ratio" name="ratio">
                                     <Select options={ratioDict} size="large" />
-                                </Form.Item>
+                                </Form.Item> */}
                             </Form>
                         </div>
                         <TagsListCurrent ref={tagList} />
@@ -240,7 +261,7 @@ const Profile: NextPage = () => {
                     </div>
                 </div>
 
-                {loading===false&&<div className={CreateStyles.btnWrap}>
+                {loading === false && <div className={CreateStyles.btnWrap}>
                     <Button onClick={handleCreate} loading={creating} block size='large' type="primary">Create</Button>
                 </div>}
 

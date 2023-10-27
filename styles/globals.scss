@@ -40,3 +40,18 @@ a {
 .nav-sticky {
     background-color: $mainBgColor!important;
 }
+
+//create 页面 表单下拉框样式处理
+.modelDrop{
+    .ant-select-item-option-content>div{
+        display: flex;
+        align-items: center;
+        span{
+            margin-left: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+    

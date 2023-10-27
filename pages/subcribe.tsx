@@ -13,6 +13,15 @@ import { messageCus } from '../helper'
 import { User } from 'firebase/auth'
 import { IPriceId, IProduct } from '../interfaces/stripe'
 
+const priceCode='prod_OsstLPgND4kP5x'
+
+const yearId = 'price_1O577HBuArRrj1nracFt19ZX'
+const monthId = 'price_1O577HBuArRrj1nrZw08aEeH'
+const labelToId={
+    [yearId]:"YEARLY",
+    [monthId]:'MONTHLY'
+}
+
 interface IPrice {
     label: string;
     value: IProduct
@@ -44,7 +53,7 @@ const Subcribe: NextPage = () => {
 
     useEffect(() => {
         API.getAllProducts().then((r) => {
-            const _price = Object.keys(r.data).map(item => ({ label: item, value: r.data[item] }))
+            const _price = Object.keys(r.data).map(item => ({ label: item, value: r.data[item] })).filter(item=>item.value.id===priceCode)
             setPrice(_price)
             setPayType(_price[0].label)
             setCurrentPriceId(_price[0].value.prices[0])
@@ -91,6 +100,8 @@ const Subcribe: NextPage = () => {
 
     const currentPriceWrap = price.find(item => item.label === payType)
 
+    const payCount=new BigNumber(get(currentPriceId,'price',0)).dividedBy(new BigNumber(100)).valueOf()
+
     return <div className={SubcribeStyles.wrap}>
         <div className={SubcribeStyles.width1280}>
 
@@ -110,6 +121,11 @@ const Subcribe: NextPage = () => {
                         Pricing
                     </h3>
 
+                    {price && !!price.length && <div className={SubcribeStyles.segmentedWrap}>
+                        <Segmented value={currentPriceId?.id} onChange={(value) => { setCurrentPriceId(price[0].value.prices.find(item=>item.id===value))}} size="large"
+                            options={get(currentPriceWrap, 'value.prices', []).map(item => ({ label: labelToId[item.id], value: item.id }))} />
+                    </div>}
+
                     <div className={SubcribeStyles.pricingDetail}>
 
                         <div className={SubcribeStyles.detailItem}>
@@ -128,7 +144,7 @@ const Subcribe: NextPage = () => {
                         <div className={SubcribeStyles.detailItem}>
                             <h3>
                                 Pro Mode<br />
-                                $15 / month+<span>(tax, price varies by region)</span>
+                                ${payCount} / {labelToId[get(currentPriceId,'id',yearId)]}<span>(tax, price varies by region)</span>
                             </h3>
 
                             <ul className={SubcribeStyles.freeUl}>
@@ -137,16 +153,16 @@ const Subcribe: NextPage = () => {
                                 <li>Private generation</li>
                                 <li className={SubcribeStyles.detailLiActive}>HD Generations (new)</li>
                                 <li className={SubcribeStyles.detailLiActive}>Exclusive Tags (new)</li>
-                                <li>No watermarks</li>
-                                <li>Commercial rights</li>
-                                <li>Higher quality</li>
-                                <li>Uncropping</li>
-                                <li>Upscaling</li>
-                                <li>Smart Edit</li>
-                                <li>Fix Details</li>
-                                <li>3D Posing</li>
-                                <li>Doodles</li>
-                                <li>Unlimited Search</li>
+                                <li className={SubcribeStyles.detailLiActive}>No watermarks</li>
+                                <li className={SubcribeStyles.detailLiActive}>Commercial rights</li>
+                                <li className={SubcribeStyles.detailLiActive}>Higher quality</li>
+                                <li className={SubcribeStyles.detailLiActive}>Uncropping</li>
+                                <li className={SubcribeStyles.detailLiActive}>Upscaling</li>
+                                <li className={SubcribeStyles.detailLiActive}>Smart Edit</li>
+                                <li className={SubcribeStyles.detailLiActive}>Fix Details</li>
+                                <li className={SubcribeStyles.detailLiActive}>3D Posing</li>
+                                <li className={SubcribeStyles.detailLiActive}>Doodles</li>
+                                <li className={SubcribeStyles.detailLiActive}>Unlimited Search</li>
                             </ul>
                         </div>
 
@@ -159,10 +175,10 @@ const Subcribe: NextPage = () => {
                             <p>Faster and unlimited generations!</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe1.jpg" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe2.jpg" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -175,10 +191,10 @@ const Subcribe: NextPage = () => {
                             <p>Private mode + no watermark</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe3.jpg" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe4.jpg" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -191,10 +207,10 @@ const Subcribe: NextPage = () => {
                             <p>HD Generators</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe5.jpg" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe6.jpg" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -206,10 +222,10 @@ const Subcribe: NextPage = () => {
                             <p>Consistent Characters</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe7.jpg" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe8.jpg" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -221,10 +237,10 @@ const Subcribe: NextPage = () => {
                             <p>Uncropping</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe9.jpg" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/banner1.webp" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe10.jpg" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -238,10 +254,11 @@ const Subcribe: NextPage = () => {
 
                 {/* stripe支付模块 */}
                 <Modal getContainer={false} title="Subcribe" footer={null} open={openSubscibe} onCancel={() => { setOpenSubscibe(false) }}>
-                    {price && !!price.length && <><div className={SubcribeStyles.segmentedWrap}>
+                    {price && !!price.length && <>
+                    {/* <div className={SubcribeStyles.segmentedWrap}>
                         <Segmented value={payType} onChange={(value) => { setPayType(value as string) }} size="large"
                             options={price.map(item => ({ label: item.label, value: item.label }))} />
-                    </div>
+                    </div> */}
 
                         <div className={SubcribeStyles.priceInfo}>
                             <h3>{currentPriceWrap?.value?.name}</h3>
@@ -254,18 +271,18 @@ const Subcribe: NextPage = () => {
                                     style={{ 'width': `calc(100% / ${get(currentPriceWrap, 'value.prices', []).length})` }}
                                     className={clsx(SubcribeStyles.priceItem, { [SubcribeStyles.priceItemActive]: item.id === currentPriceId?.id })}>
                                     <div className={SubcribeStyles.priceItemTitle}>{item?.lookup_key}</div>
-                                    <div className={SubcribeStyles.priceItemCount}>${new BigNumber(item?.price).dividedBy(new BigNumber(100)).valueOf()}</div>
+                                    <div className={SubcribeStyles.priceItemCount}>
+                                        ${new BigNumber(item?.price).dividedBy(new BigNumber(100)).valueOf()}
+                                        <span>/{labelToId[get(item,'id')]}</span>
+                                    </div>
                                 </div>)}
                         </div>
 
                         <div className={SubcribeStyles.payBtn}>
-                            <Button loading={loading} onClick={() => handlePay(currentPriceId as IPriceId)} size='large' type="primary" block>Pay ${new BigNumber(currentPriceId?.price || 0).dividedBy(new BigNumber(100)).valueOf()}</Button>
+                            <Button loading={loading} onClick={() => handlePay(currentPriceId as IPriceId)} size='large' type="primary" block>Pay ${payCount}</Button>
                         </div></>}
 
                     {!price || !price.length &&  <div className={SubcribeStyles.skeletonWrap}>
-                        <div className={SubcribeStyles.skeletonTitle}>
-                        <Skeleton.Button />
-                        </div>
                         <Skeleton paragraph={{rows:3}} />
                         <Skeleton.Button className={SubcribeStyles.payBtn} block />
                     </div>

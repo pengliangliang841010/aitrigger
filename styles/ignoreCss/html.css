@@ -1,6 +1,18 @@
 @media screen and (min-width: 541px) {
     html{
-        font-size: 54PX;
+        font-size: 44PX;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    html{
+        font-size: 44PX!important;
+    }
+}
+
+@media screen and (min-width: 1680px) {
+    html{
+        font-size: 50PX!important;
     }
 }
 

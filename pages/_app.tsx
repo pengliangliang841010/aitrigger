@@ -8,15 +8,20 @@ import { ConfigProvider } from 'antd/lib';
 import React, { useEffect } from 'react'
 import theme from '../antdTheme'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
-// import {getUser} from '../DynamoDB/userApi'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  
   useRem();
+  
+  const router=useRouter()
 
-  // useEffect(()=>{
-  //   window.getUser=getUser
-  // },[])
+  useEffect(()=>{
+    if(localStorage.getItem('18+')!=='accept'){
+      router.push(`/allow`)
+    }
+  },[])
 
   return (
     <ConfigProvider

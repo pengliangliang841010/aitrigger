@@ -88,7 +88,7 @@
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
-
+            background:linear-gradient(60deg,#f79533,#f37055,#ef4e7b,$mainColor,#1098ad,#07b39b,#6fba82) ;
             span {
                 line-height: 20px !important;
             }
@@ -120,7 +120,23 @@
                 color: #fff;
                 display: inline-block;
                 font-size: 16px;
-
+                .dot{
+                    display: inline-block; 
+                    height: 1em; line-height: 1;
+                    text-align: left;
+                    vertical-align: -.25em;
+                    overflow: hidden;
+                }
+                .dot::before {
+                    display: block;
+                    content: '...\A..\A.';
+                    white-space: pre-wrap;
+                    animation: dot 3s infinite step-start both;
+                  }
+                .vipCreateTips{
+                    color:$mainColor;
+                    
+                }
                 >span {
                     font-size: 14px;
                     color: #969696;
@@ -135,6 +151,20 @@
                     font-size: 16px;
                 }
             }
+            .placeHolderVip{
+                color:$mainColor;
+            }
+        }
+    }
+
+    .generatorItem{
+        display: flex;
+        align-items: center;
+        .clock{
+            margin-left: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 
@@ -188,10 +218,10 @@
 
 @media screen and (min-width: 541px) {
     .btnWrap {
-        max-width: 30vw;
+        max-width: 25vw;
         right: auto;
         left: 50% !important;
-        margin-left: -15vw;
+        margin-left: -12.5vw;
 
         button {
             font-weight: bold !important;
@@ -214,6 +244,8 @@
         align-items: flex-start;
         .createImgWrap {
             width: 50%;
+            position:sticky;
+            top:48px;
 
         }
 
@@ -236,4 +268,12 @@
     .createImgWrapReady {
         display: block !important;
     }
+    .btnWrap {
+        bottom: 140px!important;
+    }
+}
+
+@keyframes dot {
+    33% { transform: translateY(-2em); }
+    66% { transform: translateY(-1em); }
 }

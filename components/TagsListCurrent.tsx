@@ -529,10 +529,13 @@ export const ListItem = (props: { setTagsMap: Dispatch<SetStateAction<ITagItemCu
                                 let nextValue;
                                 if (!currentKey.find(c => c.value === value.value)) {
                                     nextValue = type === "checkbox" ? currentKey.concat([value]) : [value]
-                                    setCurrentKey(nextValue)
+                                }else{
+                                    // 已经选中的话就是删除
+                                    nextValue = type === "checkbox" ? currentKey.filter((item)=>item.value!==value.value) : []
+                                }
+                                setCurrentKey(nextValue)
                                     tagsMap[name] = nextValue
                                     setTagsMap(cloneDeep(tagsMap))
-                                }
                             }
                             }
                             active={currentKey.includes(item)}
@@ -562,7 +565,14 @@ export default React.forwardRef((props: IProps, ref) => {
     const renderTags = (tagsMap: ITagItemCurrent): any => {
         const valueAll = Object.values(tagsMap)
         const keyAll = Object.keys(tagsMap)
-        return (valueAll || []).map((item: IOption[], index) => {
+        if(!valueAll.length || !valueAll.reduce((prev,next)=>{return prev+next.length},0)){
+            return null
+        }
+        return <div className={TagsListStyles.tagMapInner}>
+        <div className={TagsListStyles.selectedTitle}>
+        Selected Tags
+        </div>
+        {(valueAll || []).map((item: IOption[], index) => {
             return (
 
                 item.map((one: IOption, index2) => <Tag
@@ -577,13 +587,9 @@ export default React.forwardRef((props: IProps, ref) => {
                         setTagsMap(cloneDeep(tagsMap))
                     }}
                 />)
-
-
             )
-
-
-
-        })
+        })}
+        </div>
     }
 
     useEffect(() => {
