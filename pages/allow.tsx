@@ -25,7 +25,7 @@ const Allow: NextPage = () => {
                     localStorage.setItem('18+','accept')
                     router.push(`/`)
                 }catch(_err){
-
+                    console.log(_err)
                 }
             }} type="primary" size="large">Accept</Button>
             </div>
