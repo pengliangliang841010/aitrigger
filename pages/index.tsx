@@ -114,8 +114,8 @@ const Home: NextPage = () => {
                         spaceBetween={30}
                         modules={[Autoplay]}
                     >
-                        {imgList?.map(item => {
-                            return <SwiperSlide>
+                        {imgList?.map((item,index) => {
+                            return <SwiperSlide key={item+index}>
                                 <Image placeholder='blur' blurDataURL="/default.webp" loading='lazy' layout="fill" objectFit='contain' src={item} alt="load failed"></Image>
                             </SwiperSlide>
                         })}
@@ -140,8 +140,8 @@ const Home: NextPage = () => {
                         spaceBetween={30}
                         modules={[Autoplay]}
                     >
-                        {imgList2?.map(item => {
-                            return <SwiperSlide>
+                        {imgList2?.map((item,index) => {
+                            return <SwiperSlide key={item+index}>
                                 <Image placeholder='blur' blurDataURL="/default.webp" loading='lazy' layout="fill" objectFit='contain' src={item} alt="load failed"></Image>
                             </SwiperSlide>
                         })}
