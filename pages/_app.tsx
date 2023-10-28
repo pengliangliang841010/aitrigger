@@ -9,6 +9,8 @@ import React, { useEffect } from 'react'
 import theme from '../antdTheme'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { app } from '../firebase'
+import { getAnalytics } from '@firebase/analytics'
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -22,6 +24,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       router.push(`/allow`)
     }
   }, [])
+
+  useEffect(()=>{
+    const analytics = getAnalytics(app);
+    if(window){
+      // @ts-ignore
+      window.analyticsCus=analytics
+    }
+  },[])
 
   return (
     <ConfigProvider

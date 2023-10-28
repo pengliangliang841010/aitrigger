@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Image from 'next/image'
-import Head from 'next/head'
 import indexStyles from '../styles/Index.module.scss'
 import { Swiper, SwiperSlide, } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
@@ -12,14 +11,12 @@ import Link from 'next/link';
 import useLogin from '../hooks/useLogin';
 import { useIsMobile } from '../hooks/isMobile'
 import API from '../api.config'
-import { useRouter } from 'next/router'
-import preload from '../hooks/preload' 
+import preload from '../hooks/preload'
+import logEvent from '../utils/logEvent'
 
 const Home: NextPage = () => {
 
     const { loginInfo } = useLogin()
-
-    const router=useRouter()
 
     const isLogin = typeof (loginInfo) === "object"
 
@@ -32,8 +29,8 @@ const Home: NextPage = () => {
     useEffect(() => {
         (async () => {
             const { data: { images } } = await API.randomFeedImageList(20)
-            setImgList(images.slice(0,10))
-            setImgList2(images.slice(10,20))
+            setImgList(images.slice(0, 10))
+            setImgList2(images.slice(10, 20))
         })()
     }, [])
 
@@ -73,8 +70,16 @@ const Home: NextPage = () => {
                 <div className={indexStyles.infoWrap}>
 
                     <div className={indexStyles.infoWrapBtn}>
-                        <Link prefetch href="/subcribe"><div>Go Premium</div></Link>
-                        <Link prefetch href={isLogin ? "/create" : "/login"}><div className={indexStyles.infoBtnActive}>Try Free</div></Link>
+                        <Link prefetch href="/subcribe"><div onClick={() => {
+                            logEvent('btn_click', {
+                                btnName: 'index_GoPremium',
+                            });
+                        }}>Go Premium</div></Link>
+                        <Link prefetch href={isLogin ? "/create" : "/login"}><div onClick={() => {
+                            logEvent('btn_click', {
+                                btnName: 'index_TryFree'
+                            });
+                        }} className={indexStyles.infoBtnActive}>Try Free</div></Link>
                     </div>
 
                     <div className={indexStyles.infoContent}>
@@ -85,11 +90,11 @@ const Home: NextPage = () => {
 
                 </div>
 
-                </div>
+            </div>
 
             {/* 首屏到底结束 */}
 
-            {imgList&&!!imgList.length&&<div className={indexStyles.width1280}>
+            {imgList && !!imgList.length && <div className={indexStyles.width1280}>
                 <div className={indexStyles.gallery}>
                     <Swiper
                         slidesPerView={isMobile ? 2 : 6}
@@ -97,15 +102,15 @@ const Home: NextPage = () => {
                         loopedSlides={4}
                         autoplay={{
                             delay: 0,
-                            disableOnInteraction:false
+                            disableOnInteraction: false
                         }}
                         speed={3000}
                         spaceBetween={30}
                         modules={[Autoplay]}
                     >
-                        {imgList?.map((item,index) => {
-                            return <SwiperSlide key={item+index}>
-                                <Image placeholder='blur' blurDataURL="/default.webp" loading='lazy' layout="fill"  objectFit="contain" src={item} alt="load failed"></Image>
+                        {imgList?.map((item, index) => {
+                            return <SwiperSlide key={item + index}>
+                                <Image placeholder='blur' blurDataURL="/default.webp" loading='lazy' layout="fill" objectFit="contain" src={item} alt="load failed"></Image>
                             </SwiperSlide>
                         })}
                     </Swiper>
@@ -114,7 +119,7 @@ const Home: NextPage = () => {
 
             {/* <div className={indexStyles.mt30} /> */}
 
-            {imgList2&&!!imgList2.length&&<div className={indexStyles.width1280}>
+            {imgList2 && !!imgList2.length && <div className={indexStyles.width1280}>
                 <div className={`${indexStyles.gallery} ${indexStyles.pb30m}`}>
                     <Swiper
                         slidesPerView={isMobile ? 2 : 6}
@@ -123,14 +128,14 @@ const Home: NextPage = () => {
                         dir="rtl"
                         autoplay={{
                             delay: 0,
-                            disableOnInteraction:false
+                            disableOnInteraction: false
                         }}
                         speed={3000}
                         spaceBetween={30}
                         modules={[Autoplay]}
                     >
-                        {imgList2?.map((item,index) => {
-                            return <SwiperSlide key={item+index}>
+                        {imgList2?.map((item, index) => {
+                            return <SwiperSlide key={item + index}>
                                 <Image placeholder='blur' blurDataURL="/default.webp" loading='lazy' layout="fill" objectFit='contain' src={item} alt="load failed"></Image>
                             </SwiperSlide>
                         })}

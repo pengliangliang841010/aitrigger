@@ -18,11 +18,10 @@ import { messageCus } from '../helper';
 import { IOption, ITagItemCurrent } from '../interfaces/createCurrent';
 import useLogin from '../hooks/useLogin';
 import FingerprintJS from '@fingerprintjs/fingerprintjs'
+import logEvent from '../utils/logEvent'
 
 // Initialize an agent at application startup.
 const fpPromise = FingerprintJS.load()
-
-
 
 const freeMode = ['Women: Detailed', 'Women: Realistic', 'Anime: Base', 'Men: Base']
 
@@ -88,6 +87,10 @@ const Profile: NextPage = () => {
     }
 
     const handleCreate = async () => {
+
+        logEvent('btn_click',{
+            btnName:'create_generate'
+        })
 
         // 先检测是否登录，如果未登录跳转登录，登录但不是vip3次后跳转注册
         if (!isLogin) {

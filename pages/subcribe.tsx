@@ -12,14 +12,15 @@ import useLogin from '../hooks/useLogin'
 import { messageCus } from '../helper'
 import { User } from 'firebase/auth'
 import { IPriceId, IProduct } from '../interfaces/stripe'
+import logEvent from '../utils/logEvent'
 
-const priceCode='prod_OsstLPgND4kP5x'
+const priceCode = 'prod_OsstLPgND4kP5x'
 
 const yearId = 'price_1O577HBuArRrj1nracFt19ZX'
 const monthId = 'price_1O577HBuArRrj1nrZw08aEeH'
-const labelToId={
-    [yearId]:"YEARLY",
-    [monthId]:'MONTHLY'
+const labelToId = {
+    [yearId]: "YEARLY",
+    [monthId]: 'MONTHLY'
 }
 
 interface IPrice {
@@ -53,7 +54,7 @@ const Subcribe: NextPage = () => {
 
     useEffect(() => {
         API.getAllProducts().then((r) => {
-            const _price = Object.keys(r.data).map(item => ({ label: item, value: r.data[item] })).filter(item=>item.value.id===priceCode)
+            const _price = Object.keys(r.data).map(item => ({ label: item, value: r.data[item] })).filter(item => item.value.id === priceCode)
             setPrice(_price)
             setPayType(_price[0].label)
             setCurrentPriceId(_price[0].value.prices[0])
@@ -61,6 +62,10 @@ const Subcribe: NextPage = () => {
     }, []);
 
     const handlePay = async (item: IPriceId) => {
+
+        logEvent('btn_click', {
+            btnName: 'subscribe_Pay'
+        })
 
         if (typeof (loginInfo) !== "object") {
             messageCus.error('Please Login in!')
@@ -100,7 +105,7 @@ const Subcribe: NextPage = () => {
 
     const currentPriceWrap = price.find(item => item.label === payType)
 
-    const payCount=new BigNumber(get(currentPriceId,'price',0)).dividedBy(new BigNumber(100)).valueOf()
+    const payCount = new BigNumber(get(currentPriceId, 'price', 0)).dividedBy(new BigNumber(100)).valueOf()
 
     return <div className={SubcribeStyles.wrap}>
         <div className={SubcribeStyles.width1280}>
@@ -113,7 +118,12 @@ const Subcribe: NextPage = () => {
                 </div>
 
                 <div className={SubcribeStyles.createBtn}>
-                    <Button onClick={() => setOpenSubscibe(true)} block type="primary">Get Pro Mode</Button>
+                    <Button onClick={() => {
+                        setOpenSubscibe(true)
+                        logEvent('btn_click', {
+                            btnName: 'subscribe_GetProMode'
+                        })
+                    }} block type="primary">Get Pro Mode</Button>
                 </div>
 
                 <div className={SubcribeStyles.pricing}>
@@ -122,7 +132,7 @@ const Subcribe: NextPage = () => {
                     </h3>
 
                     {price && !!price.length && <div className={SubcribeStyles.segmentedWrap}>
-                        <Segmented value={currentPriceId?.id} onChange={(value) => { setCurrentPriceId(price[0].value.prices.find(item=>item.id===value))}} size="large"
+                        <Segmented value={currentPriceId?.id} onChange={(value) => { setCurrentPriceId(price[0].value.prices.find(item => item.id === value)) }} size="large"
                             options={get(currentPriceWrap, 'value.prices', []).map(item => ({ label: labelToId[item.id], value: item.id }))} />
                     </div>}
 
@@ -144,7 +154,7 @@ const Subcribe: NextPage = () => {
                         <div className={SubcribeStyles.detailItem}>
                             <h3>
                                 Pro Mode<br />
-                                ${payCount} / {labelToId[get(currentPriceId,'id',yearId)]}<span>(tax, price varies by region)</span>
+                                ${payCount} / {labelToId[get(currentPriceId, 'id', yearId)]}<span>(tax, price varies by region)</span>
                             </h3>
 
                             <ul className={SubcribeStyles.freeUl}>
@@ -255,7 +265,7 @@ const Subcribe: NextPage = () => {
                 {/* stripe支付模块 */}
                 <Modal getContainer={false} title="Subcribe" footer={null} open={openSubscibe} onCancel={() => { setOpenSubscibe(false) }}>
                     {price && !!price.length && <>
-                    {/* <div className={SubcribeStyles.segmentedWrap}>
+                        {/* <div className={SubcribeStyles.segmentedWrap}>
                         <Segmented value={payType} onChange={(value) => { setPayType(value as string) }} size="large"
                             options={price.map(item => ({ label: item.label, value: item.label }))} />
                     </div> */}
@@ -273,7 +283,7 @@ const Subcribe: NextPage = () => {
                                     <div className={SubcribeStyles.priceItemTitle}>{item?.lookup_key}</div>
                                     <div className={SubcribeStyles.priceItemCount}>
                                         ${new BigNumber(item?.price).dividedBy(new BigNumber(100)).valueOf()}
-                                        <span>/{labelToId[get(item,'id')]}</span>
+                                        <span>/{labelToId[get(item, 'id')]}</span>
                                     </div>
                                 </div>)}
                         </div>
@@ -282,8 +292,8 @@ const Subcribe: NextPage = () => {
                             <Button loading={loading} onClick={() => handlePay(currentPriceId as IPriceId)} size='large' type="primary" block>Pay ${payCount}</Button>
                         </div></>}
 
-                    {!price || !price.length &&  <div className={SubcribeStyles.skeletonWrap}>
-                        <Skeleton paragraph={{rows:3}} />
+                    {!price || !price.length && <div className={SubcribeStyles.skeletonWrap}>
+                        <Skeleton paragraph={{ rows: 3 }} />
                         <Skeleton.Button className={SubcribeStyles.payBtn} block />
                     </div>
                     }

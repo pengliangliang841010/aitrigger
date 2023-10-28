@@ -65,6 +65,7 @@ export default() => {
             if (user) {
                 setLoginInfo(user)
                 cookie.set('accessToken', get(user,'accessToken',''));
+                localStorage.setItem('uid',user.uid)
             } else {
               clientOut()
             }
