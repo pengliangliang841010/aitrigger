@@ -48,7 +48,7 @@ const Login: NextPage = () => {
                         return userCredential.user;
                     })
                     messageCus.success('sign in success')
-                    router.push('/profile')
+                    router.push('/create')
                     http({
                         method: 'put',
                         url: '/api/user',
