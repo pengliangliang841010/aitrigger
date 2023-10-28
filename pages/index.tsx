@@ -31,19 +31,12 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         (async () => {
-            const { data: { images } } = await API.randomFeedImageList(10)
-            setImgList(images)
-
+            const { data: { images } } = await API.randomFeedImageList(20)
+            setImgList(images.slice(0,10))
+            setImgList2(images.slice(10,20))
         })()
     }, [])
 
-    useEffect(() => {
-        (async () => {
-            const { data: { images } } = await API.randomFeedImageList(10)
-            setImgList2(images)
-
-        })()
-    }, [])
 
     preload()
 
@@ -53,10 +46,6 @@ const Home: NextPage = () => {
             <div className={`${indexStyles.width1280} ${indexStyles.flexWrap}`}>
 
                 <div className={indexStyles.containerMain}>
-                    <Head>
-                        <title>pornGen</title>
-                        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-                    </Head>
 
                     <div className={indexStyles.swiperWrap}>
                         <Swiper effect="fade" autoplay={{
@@ -116,17 +105,17 @@ const Home: NextPage = () => {
                     >
                         {imgList?.map((item,index) => {
                             return <SwiperSlide key={item+index}>
-                                <Image placeholder='blur' blurDataURL="/default.webp" loading='lazy' layout="fill" objectFit='contain' src={item} alt="load failed"></Image>
+                                <Image placeholder='blur' blurDataURL="/default.webp" loading='lazy' layout="fill"  objectFit="contain" src={item} alt="load failed"></Image>
                             </SwiperSlide>
                         })}
                     </Swiper>
                 </div>
             </div>}
 
-            <div className={indexStyles.mt30} />
+            {/* <div className={indexStyles.mt30} /> */}
 
             {imgList2&&!!imgList2.length&&<div className={indexStyles.width1280}>
-                <div className={indexStyles.gallery}>
+                <div className={`${indexStyles.gallery} ${indexStyles.pb30m}`}>
                     <Swiper
                         slidesPerView={isMobile ? 2 : 6}
                         loop={true}

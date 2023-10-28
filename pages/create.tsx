@@ -262,7 +262,7 @@ const Profile: NextPage = () => {
                 </div>
 
                 {loading === false && <div className={CreateStyles.btnWrap}>
-                    <Button onClick={handleCreate} loading={creating} block size='large' type="primary">Create</Button>
+                    <Button onClick={handleCreate} loading={creating} block size='large' type="primary">Generate</Button>
                 </div>}
 
             </div>

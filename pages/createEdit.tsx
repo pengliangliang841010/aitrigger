@@ -169,7 +169,7 @@ const Profile: NextPage = () => {
                 </div>
 
                 {editTag && loading === false && <div className={CreateEditStyles.btnWrap}>
-                    <Button onClick={handleCreate} loading={creating} block size='large' type="primary">Create</Button>
+                    <Button onClick={handleCreate} loading={creating} block size='large' type="primary">Generate</Button>
                 </div>}
 
             </div>
