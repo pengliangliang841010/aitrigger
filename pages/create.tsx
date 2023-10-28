@@ -6,7 +6,7 @@ import { Button, Form, Select } from 'antd/lib';
 import ImageNx from 'next/image'
 import Loading from '../components/Loading'
 import { useIsMobile } from '../hooks/isMobile'
-import { setLocal } from '../utils/localStorage';
+import { getLocal, setLocal } from '../utils/localStorage';
 import TagsListCurrent from '../components/TagsListCurrent';
 import { useForm } from 'antd/lib/form/Form';
 import API from '../api.config'
@@ -16,6 +16,13 @@ import { downloadImg, polling, randomString } from '../utils';
 import { cloneDeep, get } from 'lodash';
 import { messageCus } from '../helper';
 import { IOption, ITagItemCurrent } from '../interfaces/createCurrent';
+import useLogin from '../hooks/useLogin';
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
+
+// Initialize an agent at application startup.
+const fpPromise = FingerprintJS.load()
+
+
 
 const freeMode = ['Women: Detailed', 'Women: Realistic', 'Anime: Base', 'Men: Base']
 
@@ -67,13 +74,48 @@ const Profile: NextPage = () => {
 
     const router = useRouter()
 
+    const { loginInfo } = useLogin()
+
+    const isLogin = typeof (loginInfo) === "object"
+
     const addClock = (str: string) => {
         return <div onClick={() => {
-            router.push('/subcribe')
+            messageCus.warning('Only pro users have this permission!')
+            setTimeout(() => {
+                router.push('/subcribe')
+            }, 800)
         }} className={CreateStyles.generatorItem}>{str}{clockIcon}</div>
     }
 
     const handleCreate = async () => {
+
+        // 先检测是否登录，如果未登录跳转登录，登录但不是vip3次后跳转注册
+        if (!isLogin) {
+            messageCus.warning('Please logIn first!')
+            setTimeout(() => {
+                router.push('/login')
+            }, 800)
+            return
+        }
+
+        if (!isVip) {
+            // {visitorId:{qwefasdvv:3}}
+            const fp = await fpPromise
+            const result = await fp.get()
+            // console.log(result.visitorId)
+            const info = getLocal('visitorId')
+            if (get(info, result.visitorId, 0) >= 3) {
+                messageCus.warning('Can only try 3 times for free!')
+                setTimeout(() => {
+                    router.push('/subcribe')
+                }, 800)
+                return
+            } else {
+                setLocal('visitorId', { [result.visitorId]: get(info, result.visitorId, 0) + 1 })
+            }
+        }
+
+
         if (creating) {
             return
         }

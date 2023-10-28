@@ -12,6 +12,7 @@
     "@aws-sdk/client-dynamodb": "^3.427.0",
     "@aws-sdk/client-s3": "^3.427.0",
     "@aws-sdk/lib-dynamodb": "^3.427.0",
+    "@fingerprintjs/fingerprintjs": "^4.1.0",
     "@stripe/react-stripe-js": "^2.3.0",
     "@stripe/stripe-js": "^2.1.6",
     "antd": "^5.2.5",
