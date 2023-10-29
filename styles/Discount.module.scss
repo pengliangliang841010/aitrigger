@@ -1,0 +1,68 @@
+.wrap {
+    width: 100vw;
+    background-color: $mainColor;
+    z-index:9;
+    position:sticky;
+    top:0;
+    .width1280 {
+        margin: 0 auto;
+        width: auto !important;
+        max-width: 1280px !important;
+    }
+
+    .inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: #fff;
+    }
+
+    .left,
+    .middle,
+    .right {
+        height: var(--discountHeight);
+        line-height: var(--discountHeight);
+        text-align: center;
+    }
+
+    .middle {
+        animation: pulseAnimation 2s ease-in-out infinite;
+        background-color: rgb(36 45 64);
+        padding:0 6px;
+        border-radius:999px;
+        height:calc(var(--discountHeight) / 2);
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+    }
+    .right{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap:4px;
+        span{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer; 
+        }
+    }
+}
+
+@media screen and (max-width: 540px){
+    .inner{
+        padding:0 4px;
+    }
+}
+
+
+@keyframes pulseAnimation {
+    0%,to {
+        transform: scale(1)
+    }
+
+    50% {
+        transform: scale(1.1)
+    }
+}

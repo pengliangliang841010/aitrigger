@@ -84,7 +84,7 @@ const Home: NextPage = () => {
 
                     <div className={indexStyles.infoContent}>
                         {<p>Advanced AI generator</p>}
-                        <h3>Create The Woman Of<br />Your Dreams!</h3>
+                        <h3>Generate your porn girl<br />in few seconds!</h3>
                         {<p>Create a Free Account & Design the Woman of your Fantasy today.</p>}
                     </div>
 

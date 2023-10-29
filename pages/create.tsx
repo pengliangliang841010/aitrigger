@@ -4,7 +4,6 @@ import CreateStyles from '../styles/Create.module.scss'
 import clsx from 'classnames';
 import { Button, Form, Select } from 'antd/lib';
 import ImageNx from 'next/image'
-import Loading from '../components/Loading'
 import { useIsMobile } from '../hooks/isMobile'
 import { getLocal, setLocal } from '../utils/localStorage';
 import TagsListCurrent from '../components/TagsListCurrent';
@@ -93,13 +92,13 @@ const Profile: NextPage = () => {
         })
 
         // 先检测是否登录，如果未登录跳转登录，登录但不是vip3次后跳转注册
-        if (!isLogin) {
-            messageCus.warning('Please logIn first!')
-            setTimeout(() => {
-                router.push('/login')
-            }, 800)
-            return
-        }
+        // if (!isLogin) {
+        //     messageCus.warning('Please logIn first!')
+        //     setTimeout(() => {
+        //         router.push('/login')
+        //     }, 800)
+        //     return
+        // }
 
         if (!isVip) {
             // {visitorId:{qwefasdvv:3}}

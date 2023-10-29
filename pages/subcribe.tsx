@@ -201,10 +201,10 @@ const Subcribe: NextPage = () => {
                             <p>Private mode + no watermark</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/subscribe3.jpg" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe3.png" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/subscribe4.jpg" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe4.png" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -217,10 +217,10 @@ const Subcribe: NextPage = () => {
                             <p>HD Generators</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/subscribe5.jpg" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe5.png" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/subscribe6.jpg" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe6.png" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -232,10 +232,10 @@ const Subcribe: NextPage = () => {
                             <p>Consistent Characters</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/subscribe7.jpg" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe7.png" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/subscribe8.jpg" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe8.png" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>
@@ -247,10 +247,10 @@ const Subcribe: NextPage = () => {
                             <p>Uncropping</p>
                             <div className={SubcribeStyles.galleryWrap}>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/subscribe9.jpg" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe9.png" alt="load failed"></Image>
                                 </div>
                                 <div className={SubcribeStyles.galleryImg}>
-                                    <Image layout="fill" objectFit='contain' src="/subscribe10.jpg" alt="load failed"></Image>
+                                    <Image layout="fill" objectFit='contain' src="/subscribe10.png" alt="load failed"></Image>
                                 </div>
                             </div>
                             <span>

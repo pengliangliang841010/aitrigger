@@ -7,7 +7,7 @@
     }
 
     :global(.swiper) {
-        height: calc(100 * var(--vh) - 120px);
+        height: calc(100 * var(--vh) - 120px - var(--discountHeight));
         z-index: 3;
         background-color: transparent;
 
@@ -24,7 +24,7 @@
     }
 
     .containerMain {
-        height: calc(100 * var(--vh) - 72px);
+        height: calc(100 * var(--vh) - 72px - var(--discountHeight));
     }
 
     .swiperWrap {
@@ -256,11 +256,11 @@
     .container {
 
         :global(.swiper) {
-            height: calc(100 * var(--vh) - 322px);
+            height: calc(100 * var(--vh) - 322px - var(--discountHeight));
         }
 
         .containerMain {
-            height: calc(100 * var(--vh) - 274px);
+            height: calc(100 * var(--vh) - 274px - var(--discountHeight));
         }
     }
 }
