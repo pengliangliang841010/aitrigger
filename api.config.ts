@@ -14,7 +14,7 @@ const mapEnv = {
         PAYGRW: "https://api.porngen.art",
         firebaseConfig: {
             apiKey: "AIzaSyDXjF21JliwZrdHnX6eLjDWlNBG6Jc6XHc",
-            authDomain: "aitrigger-d4d70.firebaseapp.com",
+            authDomain: "firebase.porngen.art",
             projectId: "aitrigger-d4d70",
             storageBucket: "aitrigger-d4d70.appspot.com",
             messagingSenderId: "208820737895",
@@ -27,7 +27,7 @@ const mapEnv = {
         PAYGRW: "https://api.porngen.art",
         firebaseConfig: {
             apiKey: "AIzaSyDXjF21JliwZrdHnX6eLjDWlNBG6Jc6XHc",
-            authDomain: "aitrigger-d4d70.firebaseapp.com",
+            authDomain: "firebase.porngen.art",
             projectId: "aitrigger-d4d70",
             storageBucket: "aitrigger-d4d70.appspot.com",
             messagingSenderId: "208820737895",
